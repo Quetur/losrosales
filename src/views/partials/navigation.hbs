@@ -1,0 +1,152 @@
+<body>
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div>
+      <table border=1>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="align-items: center; text-align: center;">
+            <input align="center" id="items" name="items" class="numcarrito border-0" readonly></input>
+          </td>
+          <td style="align-items: center; text-align: center;">
+            <input align="center" id="items2" name="items2" class="numcarrito border-0" readonly></input>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:600px;  align-items: center; text-align: left;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+                {{#if user}}
+                <li class="nav-item dropdown">
+                  <a style="width:500px;  align-items: center; text-align: left;" class="nav-link dropdown-toggle"
+                    href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    Menu
+                  </a>
+                  <div class="dropdown-menu" style="font-size: 2rem;width:500px; text-align: left;"
+                    aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/productoventa">Ventas particulares</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/productoventamayor">Ventas a Comercios</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/productoremito">Remitos</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/cliente">Clientes</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/pantalla_fechas">Ver ventas</a>
+                    <a class="dropdown-item" href="/pantalla_fechas_remito">Ver Remitos</a>
+                    <a class="dropdown-item" href="/pantalla_fechas_cobro">Ver Cobros</a>
+                    <a class="dropdown-item" href="/pantalla_fechas_afip">Ver AFIP</a>
+                    <a class="dropdown-item" href="/cobro">Cobros</a>
+                    <a class="dropdown-item" href="/pantalla_horario">Horarios</a>
+                  </div>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                  <a class="nav-link" href="/signin">Ingresar</a>
+                </li>
+                {{/if}}
+              </ul>
+            </div>
+          </td>
+            <td style="width:100px;  align-items: center; text-align: left;">
+            <a href="/envios">
+              <img align="center" src="../img/envio.png" height="100px" width="100px"> </img>
+          </td>
+          <td style="width:400px;  align-items: center; text-align: center;">
+            <a class="navbar-brand" style="font-size: 3rem; color:rgb(128, 146, 247);" href="/">
+              <i></i> {{user.fullname}}
+             <a href="/cajanuevo">.</a>
+            </a>
+          </td>
+          <td style="width:500px;  align-items: center; text-align: left;">
+            <div style="font-size: 3rem;width:550px; text-align: center;color:red;" id="reloj"> 00 / 00 / 00 </div>
+          </td>
+          <td style="width:100px;  align-items: center; text-align: left;">
+            <a href="/pedidos">
+              <img align="center" src="../img/EmailInboxIcon.png" height="100px" width="100px"> </img>
+          </td>
+          <td style="width:100px;  align-items: center; text-align: left;">
+            <a href="/pedidos">
+              <img align="center" src="../img/carritolleno6.jpeg" height="100px" width="100px"> </img>
+          </td>
+          <td style="width:500px;  align-items: center; text-align: left;">
+            <div class="collapse navbar-collapse" id="navbarNav">
+<iframe width="140" height="90" style="border: 0px solid #cccccc;" src="https://thingspeak.com/channels/309913/widgets/718322"></iframe>
+
+              <ul class="navbar-nav ml-auto">
+
+
+                {{#if user}}
+
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">Salir</a>
+                </li>
+                {{else}}
+                <!--
+                <li class="nav-item">
+                  <a class="nav-link" href="/signup">Registrarse</a>
+                </li>
+                -->
+                {{/if}}
+              </ul>
+            </div>
+
+          </td>
+
+        </tr>
+      </table>
+    </div>
+  </header>
+
+
+
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+  <script type="text/javascript">
+  
+    function actual() {
+      fecha = new Date(); //Actualizar fecha.
+      dia = fecha.getDate(); //dia actual
+      mes = fecha.getMonth() + 1; // mes actual
+      año = fecha.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      //console.log("hola")
+      //console.log(dia,mes,año);
+
+      mireloj = dia + "/" + mes + "/" + año + "&nbsp&nbsp" + hora + " : " + minuto + " : " + segundo;
+      //console.log(mireloj)
+      return mireloj;
+    }
+
+    function actualizar() { //función del temporizador
+      mihora = actual(); //recoger hora actual
+      mireloj = document.getElementById("reloj"); //buscar elemento reloj
+      mireloj.innerHTML = mihora; //incluir hora en elemento
+    }
+    setInterval(actualizar, 1000); //iniciar temporizador
+  </script>
+</body>

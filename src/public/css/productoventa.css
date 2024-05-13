@@ -1,0 +1,37 @@
+body{
+	padding: 0;
+	margin: 0;
+
+}
+
+.mi_table {
+
+	border-spacing: 0;
+	border: solid 1px rgb(168, 26, 26);
+	border-collapse: collapse;
+
+}
+
+.mi_table td,
+.mi_table th {
+border: solid 1px #ccc;
+padding: 5px;	
+font-size: 1em;
+}
+
+
+.mi_table tr:nth-child(even){
+	background-color: #eee;
+}
+
+.mi_table tbody tr:hover {
+	background-color: rgb(160, 222, 225) !important; 
+}
+
+.mi_table thead {
+background-color: blue;
+color: white;
+font-size: 80%;
+position: sticky;
+top: 0;
+}

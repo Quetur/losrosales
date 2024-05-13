@@ -1,0 +1,272 @@
+<body>
+
+  <div class="container p-4">
+    <div>
+      <div class="col-md-4 mx-auto">
+        <div class="card_cliente">
+          <div class="card_clienteTarguet">
+            <form id="procesarenvio" action="/envioNuevo" method="POST">
+              <table border="1" style="height: 50px; font-size: 2rem;width=2000px">
+                <tbody>
+
+                  <tr>
+                    <input style="width:220px;height: 70px;" type="date" name="fechahoy" id="fechahoy" />
+                    <td style="width:500px;height: 70px;">
+                      <label style="width:500px;height: 70px;" value="">El pedido es para el dia</label>
+                    </td>
+                    <td>
+                      <input style="width:220px;height: 70px;" type="date" name="fechapedido" id="fechapedido" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Cliente</td>
+                    <input type="text" name="cliente" id="cliente" class="form-control" placeholder="Nombre"
+                      style="height: 70px;font-size: 2rem; text-align: left;" hidden />
+                    <input type="userid" name="userid" id="userid" value="{{user.id}}" required hidden>
+
+                    <td style="width:250px;">
+
+                      <div>
+                        <select id="combo_cliente" name="combo_cliente" onchange=myFunction(this)>
+                          <option value=0>Seleccione un Cliente</option>
+                          {{#each cli}}
+                          <option value="{{id}}" title="{{nombre}}" data-saldo="{{saldo}}" ctacte="{{ctacte}}">
+                            {{nombre}}
+                          </option>
+                          {{/each}}
+                        </select>
+                        <input style="font-size: 2rem;width: 80px;  text-align: left;" name="id_cliente" id="id_cliente"
+                          readonly hidden>
+                        <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                          name="saldo_cliente" id="saldo_cliente" readonly>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Pedido</td>
+                    <td>
+                      <textarea id="pedido" name="pedido" >  </textarea>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Notas</td>
+                    <td>
+                      <textarea class="input" rows="5" cols="50" id="nota" name="nota">
+                      </textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table>
+                <tr>
+                  <table>
+                    <tr>
+                      <td colspan="2" style="width: 400px; text-align: center;">
+                        <input type="button" id="cancelar"
+                          style="background: #fa7373;width: 350px;text-align: center;font-size: 30px;"
+                          onclick=boton_cancelar() class="btn btn-danger btn-lg btn-block"
+                          value="Cancelar envio nuevo"></input>
+                      </td>
+                      <td>
+                        <input style="width:120px; height: 50px;  font-size: 2rem;" type="button"
+                          class="btn btn-primary" onclick=grabar() value="Grabar"></input>
+                      </td>
+                    </tr>
+                  </table>
+                </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+  <script type="text/javascript">
+
+    var fruta = 'hola';
+    var comentarios = '<p>Cargado por {{user.fullname}} el dia ' + fecha_actual() + '</p>';
+
+    var html = "";
+    html += `<div class="direct-chat-messages">${comentarios}</div>`;
+    $("#form-encabezado").html(html);
+
+    function set_comentario_ajax(valor) {
+      console.log(valor);
+    }
+    console.log("alta envio");
+    document.getElementById('fechahoy').value = fecha_actual2()
+    document.getElementById('fechapedido').value = fecha_actual2();
+    //document.getElementById('date').value = fecha_actual2();
+
+    $("#pedido").replaceWith('<textarea id="pedido" name="pedido" style="height: 300px;width: 500px;"></textarea>');
+
+    $("#nota").replaceWith('<textarea id="nota" name="nota" style="height: 150px;width: 500px;"></textarea>');
+
+
+    function myFunction(e) {
+      console.log("entro aca")
+      // document.getElementById("saldo").value = e.options[e.selectedIndex].getAttribute("data-saldo");
+      document.getElementById("id_cliente").value = e.options[e.selectedIndex].getAttribute("value");
+      document.getElementById("cliente").value = e.options[e.selectedIndex].getAttribute("title");
+      document.getElementById("saldo_cliente").value = e.options[e.selectedIndex].getAttribute("data-saldo");
+      console.log("saldo =", e.options[e.selectedIndex].getAttribute("data-saldo"))
+      let ctacte = e.options[e.selectedIndex].getAttribute("ctacte")
+      console.log("ctacte =", ctacte)
+
+    }
+
+    function check(e) {
+      tecla = (document.all) ? e.keyCode : e.which;
+
+      //Tecla de retroceso para borrar, siempre la permite
+      if (tecla == 8) {
+        document.getElementById("saldonuevo").value = document.getElementById("monto").value.trim();
+        return true;
+      }
+
+      // Patron de entrada, en este caso solo acepta numeros y letras
+      patron = /[0-9.]/;
+      tecla_final = String.fromCharCode(tecla);
+
+      return patron.test(tecla_final);
+    }
+
+    function grabar() {
+      console.log("boton Grabar :=>" , (document.getElementById('id_cliente').value));
+
+      if ((document.getElementById('id_cliente').value) <= 0) {
+        document.getElementById("combo_cliente").focus();
+        console.log("cliente vacio");
+       {
+            Swal.fire({
+            icon: 'error',
+            title: 'No cargo cliente',
+            text: 'cargue un cliente !!!...',
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          return false;
+
+        }
+      }
+      if (document.getElementById("pedido").value == "") {
+        document.getElementById("pedido").focus();
+        console.log("pedido vacio");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'cargue un pedido',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+
+        return false;
+      }
+
+      else {
+        document.getElementById("procesarenvio").submit();
+      }
+    }
+
+
+    function boton_cancelar() {
+      console.log("boton cancelar");
+      Swal.fire({
+        title: 'Estas Seguro?',
+        text: "Deseas cancelar la edicion!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si Cancelas, volves sin grabar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = "/envios"
+          //document.getElementById("volver").submit();
+        }
+      })
+    }
+
+
+    function fecha_actual() {
+      fecha = new Date(); //Actualizar fecha.
+      diamenos7 = fecha.getTime(); //dia actual
+      diamenossiete = new Date(diamenos7);
+      console.log("dia menos7->", diamenossiete)
+      dia = diamenossiete.getDate(); //dia actual
+      console.log("dia menos 7 _>", dia)
+      mes = diamenossiete.getMonth() + 1; // mes actual
+      año = diamenossiete.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      console.log("mes menos7", mes)
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      //console.log("hola")
+      console.log("dia, mes, año", dia, mes, año);
+
+      fecha2 = dia + "-" + mes + "-" + "20" + año;
+      //console.log(mireloj)
+      return fecha2;
+    }
+
+    function fecha_actual2() {
+      fecha = new Date(); //Actualizar fecha.
+      diamenos7 = fecha.getTime(); //dia actual
+      diamenossiete = new Date(diamenos7);
+      console.log("dia menos7->", diamenossiete)
+      dia = diamenossiete.getDate(); //dia actual
+      console.log("dia menos 7 _>", dia)
+      mes = diamenossiete.getMonth() + 1; // mes actual
+      año = diamenossiete.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      console.log("mes menos7", mes)
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      //console.log("hola")
+      console.log("dia, mes, año", dia, mes, año);
+
+      fecha2 = "20" + año + "-" + mes + "-" + dia;
+      console.log("fecha2", fecha2)
+      return fecha2;
+    }
+  </script>
+</body>

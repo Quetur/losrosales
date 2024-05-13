@@ -1,0 +1,139 @@
+<body>
+  <div class="container p-4">
+  <div class="row">
+
+    <div class="col-md-4 mx-auto">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3>Fechas del Listado {{user.fullname}}</h3>
+        </div>
+        <div class="card-body">
+          <form action="/horario" method="POST">
+            <table border="0" align="center" style="wid height: 70px;font-size: 2rem;">
+              <tr>
+                <td>
+                  <label type="text">Desde :</label>
+                  <input type="userid"  name="userid" id="userid" value="{{user.id}}" required hidden>
+                  <input type="date"  name="fechad" id="fechad"  required >
+                   <input type="text" name="fechadesde" id="fechadesde" hidden>
+                  <label type="text">Hasta :</label>
+                  <input type="date"  name="fechah" id="fechah"  required>
+                    <input type="text"  name="fechahasta" id="fechahasta" hidden>
+                </td>
+              </tr>  
+            </table>
+            <button class="btn btn-primary btn-block">
+              Aceptar
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+  fecha = actual(); //recoger hora actual
+  console.log(fecha)
+  document.getElementById('fechad').value = actualmenos7();
+  console.log(document.getElementById('fechad').value);
+   document.getElementById('fechah').value = actual();
+  console.log(document.getElementById('fechad').value);
+  console.log("1   ", fecha)
+
+ function actual() {
+      fecha = new Date(); //Actualizar fecha.
+      dia = fecha.getDate(); //dia actual
+      mes = fecha.getMonth() + 1; // mes actual
+      año = fecha.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      //console.log("hola")
+      //console.log(dia,mes,año);
+
+      mireloj = "20" +año+ "-" + mes + "-"+ dia;
+      //console.log(mireloj)
+      return mireloj;
+    }
+
+  function actualmenos7() {
+   fecha = new Date(); //Actualizar fecha.
+      diamenos7 = fecha.getTime()- 1000 * 60 * 60 * 24 * 7; //dia actual
+      diamenossiete = new Date(diamenos7);
+      console.log("dia menos7->", diamenossiete)
+      dia = diamenossiete.getDate(); //dia actual
+      console.log("dia menos 7 _>",dia)
+      mes = diamenossiete.getMonth() + 1; // mes actual
+      año = diamenossiete.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      console.log("mes menos7", mes)
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      //console.log("hola")
+      //console.log(dia,mes,año);
+
+      mireloj = "20" +año+ "-" + mes + "-"+ dia;
+      //console.log(mireloj)
+      return mireloj;
+    }
+
+  $('#fechad').change(function () {
+      console.log('cambiofecha');
+      console.log(document.getElementById('fechad').value);
+      dia = (document.getElementById('fechad').value).substr(8,2);  
+      mes = (document.getElementById('fechad').value).substr(5,2);
+      anio = (document.getElementById('fechad').value).substr(2,2);
+      console.log("dia",dia)
+      console.log(mes)
+      console.log(anio)
+      document.getElementById('fechadesde').value = anio+"/"+mes+"/"+dia
+    });
+
+ $('#fechah').change(function () {
+      console.log('cambiofecha');
+      console.log(document.getElementById('fechah').value);
+      dia = (document.getElementById('fechah').value).substr(8,2);  
+      mes = (document.getElementById('fechah').value).substr(5,2);
+      anio = (document.getElementById('fechah').value).substr(2,2);
+      console.log("dia",dia)
+      console.log(mes)
+      console.log(anio)
+      document.getElementById('fechahasta').value = anio+"/"+mes+"/"+dia
+    });
+  </script>
+
+</body>

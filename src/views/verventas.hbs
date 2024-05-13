@@ -1,0 +1,523 @@
+<header>
+  <link rel="stylesheet" href="/css/verventas.css">
+</header>
+
+<body>
+  <!-- <form id="verticket" action="/verticket" method="post" 
+ style="font-size:24px">-->
+
+
+
+
+  <table border=2 align="center">
+    <div class="card_horariohead">
+
+
+      <tr>
+
+        <td style="width:300px;  align-items: center; text-align: center;">
+          <input style="width:300px;height: 70px;font-size: 2rem;" type="text" name="search" id="search"
+            class="form-control" placeholder="buscar" />
+        </td>
+
+        </td>
+      </tr>
+  </table>
+  <div class="d-flex  justify-content-center">
+    <div class="col-md-12 mx-auto">
+
+      <table border="1">
+        <tr style="font-size: 1em; font-weight: bold; background-color: blue; color: white;">
+          <td style="width: 107px;">Fecha</td>
+          <td style="width: 80px;">Hora</td>
+          <td style="width: 100px;">Numero</td>
+          <td style="width: 300px;">Cliente</td>
+          <td style="width: 140px;text-align:center;">Vendedor</td>
+          <td style="width: 150px;text-align:center;">Tipo</td>
+          <td style="width: 183px;text-align:center;">Como Pago</td>
+          <td style="width: 183px;text-align:center;">Efectivo</td>
+          <td style="width: 183px;text-align:center;">Trans</td>
+          <td style="width: 140px;text-align:center;">Total</td>
+          <td style="width: 80px;text-align:center;"> Ver </td>
+          <td style="width: 195px;">Reparto / Negocio</td>
+          <td style="width: 200px;">Efectivo / Transferencia</td>
+          <td style="width: 100px;">Anular</td>
+        </tr>
+      </table>
+      <div class="listaProductos">
+        <table class="mi_table" id="tabla" name="tabla">
+          <!-- table table-striped table-bordered table-hover header-fixed -->
+
+          <tbody>
+            {{#each ventas}}
+            {{#if anulado }}
+            <tr style="color:rgb(245, 9, 9);  background-color: #92a8d1; font-weight: bold;font-size:70%;">
+              {{else }}
+            <tr style="color:black;font-size:70%;">
+              {{/if}}
+              <td style="width: 107px;text-align:right;">{{fecha}}</td>
+              <td style="width: 80px;text-align:right;">&nbsp&nbsp{{Hora}}</td>
+              <td style="width: 100px;text-align:right;">&nbsp&nbsp{{id_venta}}</td>
+              <td style="width: 300px;text-align:left;">&nbsp&nbsp{{cliente}}</td>
+              <td style="width: 140px;text-align:left;" hidden>&nbsp&nbsp{{tipoventa}}</td>
+              <td style="width: 140px;text-align:left;">&nbsp&nbsp{{vendedor}}</td>
+              <td>
+                <input style="width: 139px;text-align:left; border: none;" type="text" id="tipo_{{id_venta}}"
+                  name="tipo_{{id_venta}}" value={{tipo}} readonly hidden>{{tipo}}</input>
+              </td>
+              <td>
+                <input style="width: 170px;text-align:left; border: none;" type="text" id="caja_{{id_venta}}"
+                  name="caja_{{id_venta}}" value={{caja}} readonly></input>
+              </td>
+              <td>
+                <input style="width: 130px;text-align:right; border: none;" type="text" id="efec_{{id_venta}}"
+                  name="efec_{{id_venta}}" value={{efec}} readonly></input>
+              </td>
+              <td>
+                <input style="width: 130px;text-align:right; border: none;" type="text" id="tran_{{id_venta}}"
+                  name="tran_{{id_venta}}" value={{tran}} readonly></input>
+              </td>
+              <td>
+                <input style="width: 130px;text-align:right; border: none;" type="text" id="total_{{id_venta}}"
+                  name="total_{{id_venta}}" value={{total}} readonly></input>
+              </td>
+              <td style="text-align:left;" hidden>{{caja}}</td>
+              <td style="text-align:center; ">
+                <a style="width: 70px;background-color:green;color:white; " type="button" href="/verticket/{{id_venta}}"
+                  id="{{id_venta}}" id="{{id_venta}}" value="{{id_venta}}">Ver</a>
+              </td>
+
+              <td style="width: 195px;text-align:center;">
+                {{#if Reparto}}
+                <input type="image" id="{{id_pedido}}" name="{{id_venta}}" value="{{id_venta}}" class="pasa_negocio"
+                  type="button" src="/img/camioneta.png" style="width: 50px;"></input>
+                {{else}}
+                <input type="image" id="{{id_pedido}}" name="{{id_venta}}" value="{{id_venta}}" class="pasa_reparto"
+                  type="button" src="/img/negocio.png" style="width: 50px;"></input>
+                {{/if}}
+              </td>
+
+              <td style="width: 200px;text-align:center;">
+                {{#if CtaCte}}
+                <a>CtaCte</a>
+                {{else}}
+                {{#if efectivo}}
+                <input type="image" id="{{id_venta}}" name="{{id_venta}}" value="{{id_venta}}" class="pasa_Trans"
+                  type="button" src="/img/efectivo.png" style="width: 50px;"></input>
+                <!--
+                            <a id="Efectivo" name="Efectivo" href="/pasaTrans/{{id_venta}}" id="{{id_venta}}" style="text-align:center;background-color:green;"
+                          class="btn btn-info" />-->
+                {{else}}
+                <input type="image" id="{{id_venta}}" name="{{id_venta}}" value="{{id_venta}}" class="pasa_Efec"
+                  type="button" src="/img/transferencia.png" style="width: 50px;"></input>
+                <!--
+                            <a id="Transferencia" name="Transferencia" href="/pasaEfec/{{id_venta}}" id="{{id_venta}}" style="background-color: red;" class="btn btn-info" /> 
+                            -->
+                {{/if}}
+                {{/if}}
+              </td>
+
+              <td style="vertical-align:middle; text-align:center;width: 100px; ">
+                {{#if anulado}}
+                <a>Anulado</a>
+                {{else}}
+                <input type="image" id="{{id_pedido}}" name="{{id_venta}}" value="{{id_venta}}" class="botoneliminar"
+                  type="button" src="/img/botoneliminar.png" style="width: 50px;"></input>
+
+                <!--
+                      <a id="visible" name="botoneliminar" href="/botoneliminar/{{id_venta}}" id="botoneliminar" style="background-color: green;"
+                        class="btn btn-info" />
+-->
+                {{/if}}
+                <input type="txt" id="estado_{{id_venta}}" name="estado_{{id_venta}}" value={{anulado}} hidden></input>
+              </td>
+
+              <input id="fecha_{{id_venta}}" value="{{fecha}}" hidden> </input>
+              <input id="hora_{{id_venta}}" value="{{Hora}}" hidden> </input>
+              <input id="cliente_{{id_venta}}" value="{{cliente}}" hidden> </input>
+              <input id="vendedor_{{id_venta}}" value="{{vendedor}}" hidden> </input>
+              <input id="tipoventa_{{id_venta}}" value="{{tipoventa}}" hidden> </input>
+              <input id="efec_{{id_venta}}" value="{{efec}}" hidden> </input>
+              <input id="tran_{{id_venta}}" value="{{tran}}" hidden> </input>
+              <input id="total_{{id_venta}}" value="{{total}}" hidden> </input>
+              <input id="condicion_{{id_venta}}" value="{{caja}}" hidden> </input>
+              <input id="saldoant_{{id_venta}}" value="{{saldoant}}" hidden> </input>
+              <input id="trans_{{id_venta}}" value="{{trans}}" hidden> </input>
+              <input id="nota_{{id_venta}}" value="{{nota}}" hidden> </input>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        <table border="2" style="height: 140px; font-size: 2rem; width: 1000px;">
+          <td style="width:100px;  align-items: center; text-align: center;">
+            <label type="text">Efectivo :</label>
+            <input style="width:300px;height: 70px;font-size: 2rem; text-align:right;" type="text" name="total_neg_efec"
+              id="total_neg_efec" />
+            <!--
+            <label type="text">Transferencia :</label>
+            <input style="width:300px;height: 70px;font-size: 2rem;text-align:right;" type="text" name="total_neg_tran" id="total_neg_tran" />
+            -->
+          </td>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-5 col-md-6" hidden>
+
+    <table border="2" style="height: 140px; font-size: 2rem; width: 1000px;">
+      <td style="width:100px;  align-items: center; text-align: center;">
+        <input style="width:300px;height: 70px;font-size: 2rem;" type="text" name="fechadesde" id="fechadesde"
+          value="{{fechadesde}}" />
+      </td>
+      <td style="width:100px;  align-items: center; text-align: center;">
+        <input style="width:300px;height: 70px;font-size: 2rem;" type="text" name="fechahasta" id="fechahasta"
+          value="{{fechahasta}}" />
+      </td>
+      <tr>
+        <td>
+          <label type="text">vendedor</label>
+          <input type="text" name="combo_prov" id="combo_prov" class="form-control"
+            style="height: 70px;font-size: 2rem; text-align: left;" />
+        </td>
+        <td style="height: 20px;font-size: 2rem;width: 100px;  text-align: center;">
+          <label type="text">t-venta</label>
+          <input class="form-control" style="height: 70px;font-size: 2rem;  font-weight: bold;" type="text"
+            name="tipodeventa" id="tipodeventa" class="form-control" readonly></input>
+        </td>
+        <td style="height: 20px;font-size: 2rem;width: 170px;  text-align: center;">
+          <label type="text">Pago</label>
+          <input class="form-control" style="height: 70px;font-size: 2rem;  font-weight: bold;" type="text"
+            name="condicion" id="condicion" class="form-control" readonly></input>
+        </td>
+        <td style="height: 20px;font-size: 2rem;width: 170px;  text-align: center;">
+          <input class="form-control" style="height: 70px;font-size: 2rem;  font-weight: bold;" type="text"
+            name="cliente_saldo" id="cliente_saldo" class="form-control" hidden></input>
+        </td>
+      </tr>
+      <tr>
+        <td style="height: 20px;font-size: 2rem;width: 170px;  text-align: left;">
+          <label type="text">Fecha</label>
+          <input style="font-size: 2rem;width: 130px;  text-align: left;" name="fecha" id="fecha" readonly>
+        </td>
+        <td style="height: 20px;font-size: 2rem;width: 110px;  text-align: left;">
+          <label type="text">Hora</label>
+          <input style="font-size: 2rem;width: 80px;  text-align: left;" name="hora" id="hora" readonly>
+        </td>
+        <td style="height: 20px;font-size: 2rem;width: 130px;  text-align: left;">
+          <label type="text">Numero </label>
+          <input style="font-size: 2rem;width: 80px;  text-align: left;" name="factura" id="factura" readonly>
+        </td>
+        <td style="height: 20px;font-size: 2rem;width: 180px;  text-align: left;">
+          <label type="text">Cliente</label>
+          <input style="font-size: 2rem;width: 300px;  text-align: left;" name="cliente" id="cliente" readonly>
+        </td>
+    </table>
+
+
+    <form id="tacho" action="/botoneliminar" style="font-size:24px" method="post">
+      <div class="d-flex  justify-content-center">
+        <div class="col-md-12 mx-auto">
+          <div class="listaProductos" hidden>
+            <!--  id="lista_compra" -->
+            <table border="1" id="lista_compra" class="table table-striped table-bordered table-hover"
+              name="lista_compra">
+              <thead>
+                <tr style="color:black;font-size:80%;">
+                  <th>Numero</th>
+                  <th>Descripcion</th>
+                  <th>Cant</th>
+                  <th>Precio Unitario</th>
+                  <th>Subttl</th>
+                </tr>
+              </thead>
+
+              <tbody id="prod_compra">
+                <span id="out"></span>
+                <!--  {{#each detalleventas}}
+
+
+                      <tr style="color:black;font-size:70%;">
+                        <td>{{id_venta}}</td>
+                        <td>{{des}}</td>
+                        <td id=style="text-align:right;">&nbsp&nbsp{{cant}}</td>
+                        <td style="text-align:right;">&nbsp&nbsp{{precio_unit}}</td>
+                        <td style="text-align:right;">&nbsp&nbsp{{venta}}</td>
+                          <input id="desc_{{id_venta}}" value="{{des}}" hidden=false> </input>
+                         <input id="costo_{{id_venta}}" value="{{cant}}" hidden=false> </input>
+                        <input id="precio1_{{id_venta}}" value="{{precio_unit}}" hidden=false> </input>
+                          <input id="venta_{{id_venta}}" value="{{venta}}" hidden=false> </input>
+                      </tr>
+
+
+                    {{/each}}-->
+
+              </tbody>
+            </table>
+
+          </div>
+          <div hidden>
+            <table border=0 align="center">
+              <tr>
+                <td>
+                  <label class="col-form-label h2">Items :</label>
+                </td>
+                <td>
+                  <input style="width:100px;" class="btn btn-secondary btn-lg btn-block" name="largo" id="largo"
+                    align="center">
+                </td>
+                <td style="width:100px;  align-items: right; text-align: right;">
+                  <label class="col-form-label h2" style="width:300px;">Total de la Venta :</label>
+                </td>
+                <td style="width:100px;  align-items: right; text-align: right;">
+                  <input style="width:100px;" align="center" class="btn btn-primary btn-lg btn-block" id="total"
+                    name="total" class="total" value="" type="text" readonly> </input>
+                </td>
+              </tr>
+
+              <tr>
+
+                <td style="width:100px;  align-items: right; text-align: right;">
+
+                </td>
+                <td style="width:100px;  align-items: center; text-align: center;">
+
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+
+
+
+                <td style="width:100px;hight=100px;"></td>
+                <td></td>
+                <td style="width:100px;  align-items: right; text-align: right;">Paga con :&nbsp&nbsp</td>
+                <td style="width:100px;  align-items: right; text-align: right;">
+                  <input style="width:100px;" align="center" class="btn btn-primary btn-lg btn-block" id="pago"
+                    name="pago" class="total" value="" type="text" readonly></input>
+                </td>
+              </tr>
+              <tr>
+                <td colspan=2 style="width:200px;  align-items: center; text-align: center;">
+                  <label>Forma de Pago</label><br>
+                </td>
+                <td style="width:500px;" colspan="3">
+                  <input style="width:500px;" name="trans" id="trans"></input>
+                </td>
+
+                <td style="width:100px;  align-items: right; text-align: right;">Su Vuelto :&nbsp&nbsp</td>
+                <td style="width:100px;  align-items: right; text-align: right;">
+                  <input style="width:100px;" align="center" class="btn btn-primary btn-lg btn-block" id="vuelto"
+                    name="vuelto" class="total" value="" type="text" readonly> </input>
+                </td>
+              </tr>
+
+
+
+              <td style="width:110px;   align-items: right; text-align: right;">
+                <input style="width:120px; height: 150px;  font-size: 2rem;" class="btn btn-success btn-lg btn-block"
+                  id="boton" value="Imprimir" onclick=validar()></input>
+              </td>
+              </tr>
+              <input name="caja" id="caja" hidden=true></input>
+
+              <!--
+                <td style="width:300px;  align-items: right; text-align: right;">
+
+
+                  <input style="width:300px;" class="btn btn-success btn-lg btn-block" id="imprime"
+                    value="Imprime ticket" onclick=imprimeTicket() type="button">
+                </td>
+                -->
+              <tr>
+                <td>
+                  <label></label>
+                </td>
+                <td style="width:500px;hight=100px;" colspan="3">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Notas</label>
+                </td>
+                <td style="width:500px;" colspan="3">
+                  <input style="width:500px;" name="nota" id="nota"></input>
+                  <input style="width:500px;" name="guardacliente" id="guardacliente" hidden></input>
+                  <!-- estos campos son para guardar cliente nuevo los pongo aca porque no me los lee de la ventana modal-->
+                  <input type="text" name="nombre" id="nombre" hidden />
+                  <input type="text" name="calle" id="calle" hidden />
+                  <input type="text" name="localidad" id="localidad" hidden />
+                  <input type="text" name="telefono" id="telefono" hidden />
+                  <input type="text" name="iva" id="iva" hidden>
+                  <input type="text" name="cuit" id="cuit" hidden />
+                  <input type="text" name="mail" id="mail" hidden />
+                  <input type="text" name="categoria" id="categoria" value="2" hidden />
+
+
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  </div>
+  </form>
+
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+  <script type="text/javascript">
+    let mtotal_neg_efect = 0;
+    let mtotal_neg_tran = 0;
+    $("#tabla tbody tr").each(function (idx, fila) {
+      console.log("monto ", fila.children[8].firstElementChild.value);
+      console.log("Comprobante ", fila.children[14].firstElementChild.value);
+      campo = parseFloat($("#estado_" + fila.children[14].firstElementChild.value).val());
+      console.log("campo ", campo);
+      //valor = parseFloat($("#precio2_debito_" + id).val());
+      //console.log("Comercio", costo);
+      //console.log("estado " , valor);
+      if (campo === 0) {
+        if (fila.children[6].firstElementChild.value == "Negocio") {
+          console.log("tipo ", fila.children[6].firstElementChild.value);
+          if (fila.children[7].firstElementChild.value == "Efectivo") {
+            console.log("tipo ", fila.children[7].firstElementChild.value);
+            mtotal_neg_efect = parseFloat(mtotal_neg_efect) + parseFloat(fila.children[8].firstElementChild.value);
+          }
+        }
+        else
+          console.log("tipo, anulado ", fila.children[6].firstElementChild.value);
+      }
+    });
+    console.log("total Efect", mtotal_neg_efect)
+
+    field = document.querySelector('#total_neg_efec');
+    field.value = mtotal_neg_efect;
+    //field = document.querySelector('#total_neg_tran');
+    //field.value = mtotal_neg_tran;
+
+    function negocio(value) {
+      console.log("value", value)
+      document.getElementById("pasanegocio").submit();
+    }
+
+
+    $('#search').keyup(function () {
+      search_table($(this).val());
+    });
+
+    function search_table(value) {
+      console.log("pasa")
+      $('#tabla tr').each(function () {
+        var found = 'false';
+
+        $(this).each(function () {
+          if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+            found = 'true';
+          }
+        });
+
+        if (found == 'true') {
+          $(this).show();
+        }
+        else {
+          $(this).hide();
+        }
+
+      });
+    }
+
+
+
+    $('.verfactura').on('click', function (e) {
+      console.log('verfactura');
+      console.log(e.target);
+      var id = (e.target.value);
+      console.log("id :", id);
+      document.getElementById("factura").value = id
+      document.getElementById("fecha").value = $("#fecha_" + id).val()
+      document.getElementById("hora").value = $("#hora_" + id).val()
+      document.getElementById("cliente").value = $("#cliente_" + id).val()
+      document.getElementById("nota").value = $("#nota_" + id).val()
+      console.log("vendedor", $("#vendedor_" + id).val())
+      document.getElementById("combo_prov").value = $("#vendedor_" + id).val()
+      document.getElementById("tipodeventa").value = $("#tipoventa_" + id).val()
+      document.getElementById("condicion").value = $("#condicion_" + id).val()
+      document.getElementById("total").value = $("#total_" + id).val()
+      document.getElementById("cliente_saldo").value = $("#saldoant_" + id).val()
+      document.getElementById("trans").value = $("#trans_" + id).val()
+      document.getElementById("verticket").submit();
+
+    });
+
+
+
+    $('.botoneliminar').on('click', function (e) {
+
+      console.log('botoneliminar');
+      console.log("e.target", e.target);
+      var id_venta = e.target.value
+      console.log("id_venta ", id_venta)
+      var linea = "/botoneliminar/" + id_venta;
+      console.log("linea ", linea);
+      window.open(linea);
+
+    });
+
+    $('.pasa_negocio').on('click', function (e) {
+
+      console.log('pasa_negocio');
+      console.log("e.target", e.target);
+      var id_venta = e.target.value
+      console.log("id_venta ", id_venta)
+      var linea = "/pasanegocio/" + id_venta;
+      console.log("linea ", linea);
+      window.open(linea);
+
+    });
+
+
+    $('.pasa_reparto').on('click', function (e) {
+
+      console.log('pasa_reparto');
+      console.log("e.target", e.target);
+      var id_venta = e.target.value
+      console.log("id_venta ", id_venta)
+      var linea = "/pasareparto/" + id_venta;
+      console.log("linea ", linea);
+      window.open(linea);
+
+    });
+
+    $('.pasa_Trans').on('click', function (e) {
+
+      console.log('pasa_Trans');
+      console.log("e.target", e.target);
+      var id_venta = e.target.value
+      console.log("id_venta ", id_venta)
+      var linea = "/pasaTrans/" + id_venta;
+      console.log("linea ", linea);
+      window.open(linea);
+
+    });
+
+    $('.pasa_Efec').on('click', function (e) {
+
+      console.log('pasa_Efec');
+      console.log("e.target", e.target);
+      var id_venta = e.target.value
+      console.log("id_venta ", id_venta)
+      var linea = "/pasaEfec/" + id_venta;
+      console.log("linea ", linea);
+      window.open(linea);
+
+    });
+
+  </script>
+
+</body>
+<footer class="oculto-impresion"></footer>

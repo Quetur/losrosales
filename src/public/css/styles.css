@@ -1,0 +1,595 @@
+body {
+    background: #f5f6fa;
+font-family: 'Oswald', sans-serif;
+/*margin-bottom: calc(100%-100px) ;*/
+    overflow: auto;
+}
+
+.index {
+    width: 100vw;
+    height: 80vh;
+}
+
+.navbar {
+  margin-top: 0px;
+  /*position: fixed;*/
+  margin: 0 0 0 0;
+  width: 100%;
+  color: #fff !important;
+  background: black !important;
+
+
+}
+.navbar-wrapper > .container {
+
+       padding-right: 0;
+       padding-left: 0;
+       width: inherit;
+}
+
+.navbar-wrapper .navbar {
+       width: 100% !important;
+}
+.nav-link {
+    color: #fff !important;
+    font-size: 3rem;
+    text-align: right;
+    
+}
+
+.carrito {
+  color: #fff !important;
+  background-color: black;
+  width: 100px;
+  font-size: 2rem;
+  vertical-align: baseline;
+}
+
+.numcarrito {
+  border-radius: 50%;
+  position: absolute;
+  color: #fff !important;
+  background-color: red;
+  width: 50px;
+  font-size: 2rem;
+  align-items: center;
+  text-align: center;
+  vertical-align: text-bottom;
+  margin-top: 35px;
+}
+
+
+.masthead {
+    color: white;
+    min-height: 30rem;
+    width: 100%;
+    height: 100%;
+    /*margin-bottom: 1500px;*/
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    background: url('/img/mesa_picada.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.masthead h1 {
+    font-size: 4rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  @media (min-width: 992px) {
+    .masthead {
+      height: 100vh;
+    }
+    .masthead h1 {
+      font-size: 5.5rem;
+    }
+  }
+
+  .titu {
+    font-size: 2rem;
+    color: black;
+    margin: 0;
+    padding: 0;
+  }
+
+  .titu_losrosales {
+    font-size: 4rem;
+    color: white !important;
+    border-width: 1px;
+    text-shadow: 2px 2px 4px black;
+    margin: 0;
+    padding: 0;
+  }
+  .subtitu_ticket {
+    font-size: 2rem;
+    color: white !important;
+    border-width: 1px;
+    text-shadow: 2px 2px 4px black;
+    margin: 0;
+    padding: 0;
+  }
+  .titu2 {
+    font-size: 2rem;
+    color: white !important;
+    border-width: 1px;
+    text-shadow: 2px 2px 4px black;
+    margin: 0;
+    padding: 0;
+  }
+  .titu3 {
+    font-size: 2rem;
+    color: yellow !important;
+    border-width: 1px;
+    text-shadow: 2px 2px 10px black;
+    margin: 0;
+    padding: 0;
+  }
+  .titulo {
+    font-size: 10rem;
+    color: white !important;
+    border-width: 1px;
+    text-shadow: 4px 4px 8px black;
+    margin: 0;
+    padding: 0;
+  }
+
+  .listaProductos {
+    font-size: 2rem;
+    color: black; 
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 70%;
+    text-align: left;
+    background-color: white;
+  }
+
+.cardProducto {
+    font-size: 2rem;
+    background: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: auto;
+  }
+
+
+  .listaPedidos {
+    font-size: 2rem;
+    color: black;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 60%;
+  }
+
+
+  .footer2{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 5%;
+    background-color: black;
+    color: white;
+   
+  }
+  
+.color-mio{
+  background-color: black;
+  color: white; 
+  font-size: 2rem;
+  text-align: center;
+
+}
+
+
+.tabla-barra{
+  width: 100%;
+/*width: 100vw;*/
+  text-align: center;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  vertical-align : baseline;
+  src: local('Raleway Bold'), local('Raleway-Bold'), url(https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwJYtWqZPAA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* menu general*/
+.menucategoria{
+  
+  background: black;
+  list-style: none;
+  line-height: 10px;
+  padding-top: 50px;
+ /* margin: 2mm auto;
+  /*outline: 1px solid red;*/
+  padding-left: 0;
+  width: 35em;
+  vertical-align :baseline;
+
+}
+
+
+/* inicial  item*/
+.menucategoria a
+{
+  height: 2em;
+  font-size : 3em;
+  margin-top: 30px;
+  color: #ddd;
+  padding-top: 10px;
+  padding-left: 10px;
+  /* outline: 1px solid blue;*/
+  vertical-align: text-bottom;
+  text-decoration: none;
+  /*text-transform: uppercase;*/
+  --webkit-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+  width: 15px;
+  vertical-align : baseline;
+}
+
+/* final  blanco*/
+.menucategoria a:hover
+{
+  margin-left: 1em;
+  height: 2em;
+  vertical-align : baseline;
+ 
+}
+
+/*
+.menucategoria a
+{
+  height: 5em;
+  margin-bottom: 1em;
+  font-size : 2em;
+  align-items: center;
+  color: white;
+  background: black;
+  padding-left: 10px;
+  margin-top: px;
+  text-decoration: none;
+  text-transform: uppercase;
+  --webkit-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+  width: 100%;
+}
+
+.menucategoria a:hover
+{
+  margin-left: 2em;
+}
+*/
+
+
+.menucategoria a:hover
+{
+  margin-left: 1em;
+  height: 1em;
+  vertical-align : baseline;
+ 
+}
+
+.menucategoria li
+{
+  height: 6em;
+ border-left: 3px solid rgba(255,255,255,.2);
+ box-shadow: 3px 0 rgba(255,255,255,.2) inset;
+ margin-bottom: 5px;
+ vertical-align : baseline;
+ 
+ padding-left: 1ex;
+  /*outline: 1px solid green;*/
+  --webkit-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+}
+
+/*
+.menucategoria li
+{
+  height: 2em;
+ border-left: 3px solid rgba(255,255,255,.2);
+ box-shadow: 3px 0 rgba(255,255,255,.2) inset;
+ margin-bottom: 5px;
+ padding-left: 1ex;
+  outline: 1px solid green;
+  --webkit-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+  width: 100%;
+}
+
+.menucategoria li:hover
+{
+  box-shadow: 15em 0 rgba(255,255,255,.2) inset;
+
+}
+
+*/
+
+
+
+.menucategoria li:hover
+{
+  height: 3em;
+  box-shadow: 15em 0 rgba(255,255,255,.2) inset;
+  vertical-align : baseline;
+}
+
+/*
+.container{
+  width: 100%;
+  max-width: 1200px;
+ /* height: 430px;*/
+ /* display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+}
+
+.container .card{
+  width: 330px;
+  height: 430px;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin: 20px;
+  text-align: center;
+  transition: all 0.25s;
+}
+
+.container .card:hover{
+  transform: translateY(-15px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+}
+
+.container .card img{
+  width: 330px;
+  height: 220px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1 0 500px;
+  box-sizing: border-box;
+  margin: 1rem .25em;
+}
+
+@media screen and (min-width: 40em) {
+  .card {
+     max-width: calc(50% -  1em);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .card {
+      max-width: calc(25% - 1em);
+  }
+}
+*/
+/* Flex styles -------------------------------------------------*/
+
+.card_horariohead {
+  width: 800px;
+  font-size: 1.5rem;
+  background: white;
+  color: black;
+  margin: 10;
+  padding: 10;
+}
+
+.card_horariobody {
+  width: 800px;
+  font-size: 1.5rem;
+  background: white;
+  color: black;
+  margin: 10;
+  padding: 10;
+}
+.card_cliente {
+  height: 800px;
+  width: 100px;
+  font-size: 2rem;
+  background: white;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.card_clienteTarguet {
+  height: 800px;
+  width: 500px;
+  font-size: 2rem;
+  background: white;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 700px) {
+ .leading {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.container {
+  margin: 0;
+  
+}
+
+/* Grid styles -------------------------------------------------*/
+
+.modificarproducto {
+  
+ /* display: grid;
+ /*
+ max-width: 960px;
+ /*margin: 2em auto;*/
+ margin-left: 5px;
+ width: 200px;
+ background-color:white;
+ grid-template-columns: 200px;
+ grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+ 
+ grid-template-rows: auto;
+ grid-gap: 20px;
+}
+
+.grid {
+  
+   display: grid;
+  /*
+  max-width: 960px;
+  /*margin: 2em auto;*/
+  margin-left: 5px;
+  width: 200px;
+  background-color:white;
+  grid-template-columns: 200px;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  
+  grid-template-rows: auto;
+  grid-gap: 20px;
+}
+
+.grid-div {
+  background-color:rgb(245, 245, 233);
+  text-align: center;
+  width: auto;
+  margin-top: 0px;
+  margin-bottom: 25px!important;
+  padding: 0 12px;
+  height: 690px;
+  border-bottom: 1px solid #E5E5E5;
+  border-left: 1px solid #E5E5E5;
+
+}
+.grid-img {
+  margin-top: 20px;
+  width: 400px;
+  height: 300px;
+  box-shadow: 0 0 15px rgb(3, 3, 3);
+  background: #fff;
+  border-radius: 10%;
+  /*object-fit: scale-down;*/
+}
+
+@media only screen and (min-width: 200px) {
+  .grid {
+    grid-template-columns: 1fr ;
+  }  
+}
+
+@media only screen and (min-width: 400px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }  
+}
+
+@media only screen and (min-width: 950px) {
+  .grid {
+    grid-template-columns: 1fr 1fr ;
+  }  
+}
+
+
+@media only screen and (min-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .grid {
+    grid-template-columns: 1fr  1fr 1fr;
+  }
+}
+.descripcion-producto {
+  margin:0 10px; 
+  padding:0;
+  font-size: 1.5em;
+  /*width: 100%;*/
+  color: #000;
+  min-height: 1.5em;
+  vertical-align: text-top;
+  /*font-weight: bold;*/
+  height: 70px;
+  font-weight: bold;
+ 
+}
+.ticket_gral {
+  background: white;
+}
+
+.ticket_precio {
+  background: white;
+	font-size: 16px;
+	font-family: 'Arial';
+}
+
+.gracias {
+  background: white;
+	font-size: 24px;
+	font-family: 'Arial';
+}
+
+.ticket_total {
+  background: white;
+	font-size: 24px;
+	font-family: 'Arial';
+  font-weight: bold;
+}
+
+.ticket_item {
+  background: white;
+	font-size: 16px;
+	font-family: 'Arial';
+  font-weight: bold;
+}
+
+.card_cobro {
+  height: 450px;
+  width: 1000px;
+  font-size: 2rem;
+  background: white;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+@media print {
+  .oculto-impresion,
+  .oculto-impresion * {
+      display: none !important;
+  }
+}
+
+.line-1 {
+  height: 5px;
+  background: black;
+}

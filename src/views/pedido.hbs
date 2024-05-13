@@ -1,0 +1,1558 @@
+<header>
+  <link rel="stylesheet" href="/css/productoventa.css">
+</header>
+
+<body>
+  <form id="procesarventa" action="/procesar-venta" method="POST" style="font-size:24px">
+
+    <div class="row">
+      <div class="col-sm-5 col-md-6">
+        <!--<div class="container mt-3 " style="width:300px;" align="left">-->
+
+        <table border=0 align="center">
+          <tr>
+            <td style="width:300px;  align-items: center; text-align: center;">
+              <input style="width:300px;height: 70px;font-size: 2rem;" type="text" name="search" id="search"
+                class="form-control" placeholder="buscar" />
+            </td>
+            <td style="width:900px;  align-items: center; text-align: center;">
+              {{#if comercio }}
+              <input class="form-control" style="height: 70px;font-size: 2rem; background: #fa7373;  font-weight: bold;"
+                type="text" name="tipodeventa" id="tipodeventa" class="form-control" value="Pedido        Comercio"
+                readonly></input>
+              {{else}}
+              <input class="form-control" style="height: 70px;font-size: 2rem; background: #83f783;  font-weight: bold;"
+                type="text" name="tipodeventa" id="tipodeventa" value="Particular" readonly></input>
+              {{/if}}
+            </td>
+          </tr>
+        </table>
+        <table class="mi_table">
+          <tr style="background-color: blue;color: white; text-align: center;">
+            <td>
+              {{#if comercio }}
+            <th style="width: 600px; text-align: left; ">Descripcion</th>
+            <th style="width: 150px; ">Precio Nego</th>
+            <th style="width: 150px; ">Precio Part</th>
+            <th style="width: 100px; ">Accion</th>
+            {{else}}
+            <th style="width: 730px;  text-align: left; ">Descripcion</th>
+            <th style="width: 170px; ">Precio Unitario</th>
+            <th style="width: 100px; ">Accion</th>
+            {{/if}}
+            </td>
+          </tr>
+        </table>
+
+        <div class="d-flex  justify-content-center">
+          <div class="col-md-12 mx-auto">
+            <div class="listaProductos">
+              <!--table table-striped table-bordered table-hover header-fixed-->
+              <table class="mi_table" id="tabla">
+                <!-- <thead>
+                  <tr>
+                    <th>Descripcion</th>
+                    {{#if comercio }}
+                    <th>Precio Nego</th>
+                    <th>Precio Part</th>
+                    {{else}}
+                    <th>Precio Unitario</th>
+                    {{/if}}
+
+                    <th style="text-align:center;" colspan="4">Accion</th>
+                  </tr>
+                </thead>
+                -->
+                <tbody>
+                  {{#if comercio }}
+                  {{#each produ}}
+                  <tr style="color:black;">
+                    <!--
+                    <td style=" width: 600px;">
+                      <input type="button"style="width: 600px;  text-align:left;" onclick=sumacompra()
+                    value="{{id_producto}}" id="{{id_producto}}">{{des}}</button> 
+                    </td>
+                    -->
+                    <td style="width: 600px;">{{des}}</td>
+                    <!-- <td style="text-align:right;" >{{fecha}}</td> -->
+
+                    <td style="width: 150px;text-align:right;">$&nbsp&nbsp{{precio2}}</td>
+                    <td style="width: 150px;text-align:right;">$&nbsp&nbsp{{precio1}}</td>
+                    <td style="width: 100px;text-align:center; ">
+                      <button style="width: 80px;background-color:green;color:white; text-align:center;"
+                        class="sumacompra" type="button" id="{{id_producto}}" value="{{id_producto}}">+</button>
+
+                    </td>
+                    <input id="desc_{{id_producto}}" value="{{des}}" hidden=true> </input>
+                    <input id="costo_{{id_producto}}" value="{{costo}}" hidden=true> </input>
+                    <input id="precio2_{{id_producto}}" value="{{precio2}}" hidden=true> </input>
+                    <input id="precio1_{{id_producto}}" value="{{precio1}}" hidden=true> </input>
+
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  {{#each produ}}
+                  <tr style="color:black;">
+                    <td style="width: 750px;">{{des}}</td>
+                    <td>
+                      <input id="Descuentoapartir_{{id_producto}}" value="{{descuentoapartir}}" hidden=false>
+                      {{descuentoapartir}}</input>
+                      <input type="button" class="Descuentoxunidad_{{id_producto}}"
+                        id="Descuentoxunidad_{{id_producto}}" value="{{descuentoxunidad}}"></input>
+
+                    </td>
+                    <td style="width: 170px; text-align:right;">$&nbsp&nbsp{{precio1}}</td>
+                    <td style="width: 100px;text-align:center; ">
+                      <button style="width: 80px;background-color:green;color:white; " class="sumacompra" type="button"
+                        id="{{id_producto}}" value="{{id_producto}}">+</button>
+                    </td>
+                    <input id="desc_{{id_producto}}" value="{{des}}" hidden=true> </input>
+                    <input id="costo_{{id_producto}}" value="{{costo}}" hidden=true> </input>
+                    <input id="precio1_{{id_producto}}" value="{{precio1}}" hidden=true> </input>
+
+                  </tr>
+                  {{/each}}
+                  {{/if}}
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5 col-md-6">
+        <form>
+ 
+
+              <select id="combo_pedidos" name="combo_pedidos" hidden>
+
+                {{#each llegapedido}}
+                <option value="{{id}}" title="{{estado}}" data-saldo="{{estado}}">{{cliente}} {{fecha}} {{hora}} hidden
+                </option>
+                {{/each}}
+              </select>
+              <select id="combo_pedidos2" name="combo_pedidos2" hidden>
+
+                {{#each preparapedido}}
+                <option value="{{id}}" title="{{estado}}" data-saldo="{{estado}}">{{cliente}} {{fecha}} {{hora}}
+                hidden</option>
+                {{/each}}
+              </select>
+    
+          <table  style="border-bottom: 5px solid red;" >
+            <tr >
+              {{#each cli}}
+              <td style="height: 70px;font-size: 2rem;width: 100px;  text-align: left;">
+
+                <label type="text">Cliente :</label>
+              </td>
+              <td style="height: 70px;font-size: 2rem;width: 80px;  text-align: left;">
+                <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: left;" name="id_cliente" id="id_cliente"
+                  value={{id}} readonly>
+              </td>
+              <td>
+                <input class="sinborde" style="font-size: 2rem;width: 300px;  text-align: left;" name="id_cliente" id="id_cliente"
+                  value={{nombre}} readonly>
+              </td>
+                 <td>
+              <td style="height: 70px;font-size: 2rem;width: 60px;  text-align: left;">
+
+                <label type="text">Saldo:</label>
+              </td>
+              <td style="height: 70px;font-size: 2rem;width: 100px;  text-align: left;">
+                <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;" name="id_cliente" id="id_cliente"
+                  value={{saldo}} readonly>
+              </td>
+              {{/each}}
+            </tr>
+          </table>
+          <!-- Button trigger modal
+              <center>
+                <button type="button" id="btnmodal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                  data-cat="2" data-ape="">
+                  Launch demo modal
+                </button>
+              </center>
+              Button trigger modal -->
+          <td style="text-align:center; width:80px; height: 80px;">
+
+            <input align="center" style="width:50px; height: 50px; align-items: center; font-size: 2rem;"
+              class="btn btn-info" id="btnmodal" value="+" data-toggle="modal" onclick=abremodal() hidden></input>
+          </td>
+
+
+          </td>
+
+
+
+          </tr>
+          <input type="text" name="combo_prov" id="combo_prov" value="{{user.fullname}}" class="form-control"
+            style="height: 70px;font-size: 2rem; text-align: left;" hidden=true />
+
+          <input style="width:200px; text-align:center;" name="fecha" id="fecha" hidden=true>
+
+          <input style="width:200px; text-align:center;" name="horalocal" id="horalocal" align="center" hidden=true>
+          <div style="color:red; " id="reloj" hidden=true></div>
+
+          </table>
+
+          <div class="d-flex  justify-content-center">
+            <div class="col-md-12 mx-auto">
+              <div class="listaProductos">
+                <table border="1" id="lista_compra" class="table table-striped table-bordered table-hover"
+                  name="lista_compra">
+                  <thead>
+                    <tr style="color:black;font-size:80%;">
+                      <th>cod</th>
+                      <th>Ped</th>
+                      <th>Descripcion</th>
+                      <th>Desp</th>
+                      <th>Precio Unitario</th>
+                      <th>Subttl</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="prod_compra">
+                    {{#each pedidodetalle}}
+                    <tr style="color:black;font-size:80%;">
+                      <td style="color:black;font-size:70%;" id="${largo}">
+                        <input type="button" value={{id_producto}} name="idproducto_11{{id}}" id="idproducto_11{{id}}"></input>
+                      </td>
+                      <td style="color:black;font-size:70%;" id="${largo}">
+                        <input type="button" value={{cant}} name="idproducto_11{{id}}" id="idproducto_11{{id}}"></input>
+                      </td>
+                      <td style="color:black;font-size:70%;" id="${largo}">
+                        <input type="button" value={{des}} class="desc_{{id}}" name="desc_{{id}}"                          
+                        id="desc_{{id}}"></input>
+                      </td>
+                      <td style="color:black;font-size:70%;" align="right" class="text-right">
+                        <input type="button" text-align="right" onclick=cambio_cantidad(this,{{id}}) value="0"
+                          class="cant_{{id}}" id="cant_{{id}}"></input>
+                      </td>
+                      <td style="color:black;font-size:70%;" class="text-right" contenteditable='true' >
+                        <input type="button" value={{precio_unit}} class="costo_{{id}}" name="costo_{{id}}"
+                          id="costo_{{id}}"></input>
+                      </td>
+                      <td style="color:black;font-size:70%;" class="text-right" contenteditable='true' >
+                        <input type="button" value="0" class="subttl_{{id}}" name="subttl_{{id}}" id="subttl_{{id}}"></input>
+                      </td>
+                      <td style="color:black;font-size:70%;" class="text-right" contenteditable='true'>
+
+                      </td>
+                      <td style="color:black;font-size:70%;" class="text-center">
+
+
+                        <input type="text" value={{id_producto}} name="cod"></input>
+                        <input type="text" value="0" class="cant{{id}}" id="cant{{id}}" name="cant"></input>
+                        <input type="text" value="{{des}}" class="desc{{id}}" id="desc{{id}}" name="desc{{id}}"
+                        ></input>
+                        <input type="text" value={{precio_unit}} class="costo{{id}}" id="costo{{id}}"
+                          name="costo" ></input>
+                        <input type="text" value="0" class="subttl{{id}}" id="subttl{{id}}"
+                          name="subttl"></input>
+
+
+
+
+
+                      </td>
+                    </tr>
+                    {{/each}}
+
+                  </tbody>
+                  
+                  <tfoot>
+                    <tr style="color: rgb(44, 10, 241);">
+                      <th style="text-align: right"> </th>
+                      <th style="text-align: right"> Items :</th>
+                      <th style="text-align: center" id="item_tabla"> </th>
+                      <th style="text-align: right"> Total :</th>
+                      <th style="text-align: center" id="total_tabla"> </th>
+                    </tr>
+                  </tfoot>
+                </table>
+
+              </div>
+              <div>
+                <table border=0 align="center">
+                  <tr>
+                    <td>
+                      <label class="col-form-label h2">Items :</label>
+                    </td>
+                    <td>
+                      <input style="width:100px;" class="btn btn-secondary btn-lg btn-block" name="largo" id="largo"
+                        align="center">
+                    </td>
+                    <td style="width:100px;  align-items: right; text-align: right;">
+                      <label class="col-form-label h2" style="width:300px;">Total de la Venta :</label>
+                    </td>
+                    <td style="width:100px;  align-items: right; text-align: right;">
+                      <input style="width:100px;" align="center" class="btn btn-primary btn-lg btn-block" id="total"
+                        name="total" class="total" value="" type="text" readonly> </input>
+                    </td>
+                  </tr>
+
+                  <tr>
+
+                    <td style="width:100px;  align-items: right; text-align: right;">
+
+                    </td>
+                    <td style="width:100px;  align-items: center; text-align: center;">
+
+                    </td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+
+
+
+                    <td style="width:100px;hight=100px;"></td>
+                    <td></td>
+                    <td style="width:100px;  align-items: right; text-align: right;">Paga con :&nbsp&nbsp</td>
+                    <td style="width:100px;  align-items: right; text-align: right;">
+                      <input style="width:100px;" align="center" class="btn btn-primary btn-lg btn-block" id="pago"
+                        name="pago" class="total" value="" type="text" readonly></input>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan=2 style="width:200px;  align-items: center; text-align: center;">
+                      <label>Forma de Pago</label><br>
+                    </td>
+
+                    <td style="width:100px;  align-items: right; text-align: right;">Su Vuelto :&nbsp&nbsp</td>
+                    <td style="width:100px;  align-items: right; text-align: right;">
+                      <input style="width:100px;" align="center" class="btn btn-primary btn-lg btn-block" id="vuelto"
+                        name="vuelto" class="total" value="" type="text" readonly> </input>
+                    </td>
+                  </tr>
+                  <tr style="width:100px;  ">
+
+                    <td colspan=3 style="width:200px;  align-items: left; text-align: left;">
+                      <label class="radio form-control " style="width: 300px;height: 250px; font-size: 2rem;">
+                        <input style="width: 30px;" type="radio" name="condicion" id="condicion1" value="Efectivo"
+                          required></input>
+                        <label for="condicion1">Efectivo</label><br>
+                        <input style="width: 30px;" type="radio" name="condicion" id="condicion2" value="Debito"
+                          required></input>
+                        <label for="condicion2">Debito</label><br>
+                        <input style="width: 30px;" type="radio" name="condicion" id="condicion3" value="Transferencia"
+                          required></input>
+                        <label for="condicion3">MercadoPago</label><br>
+                        <input style="width: 30px;" type="radio" name="condicion" id="condicion4"
+                          value="CuentaCorriente" required></input>
+                        <label for="condicion4">Cuenta Corriente</label><br>
+                    </td>
+
+
+                    <td style="width:110px;   align-items: right; text-align: right;">
+                      <input style="width:120px; height: 150px;  font-size: 2rem;"
+                        class="btn btn-success btn-lg btn-block" id="boton" value="Grabar" onclick=validar()></input>
+                    </td>
+                  </tr>
+                  <input name="caja" id="caja" hidden=true></input>
+
+                  <!--
+                <td style="width:300px;  align-items: right; text-align: right;">
+
+
+                  <input style="width:300px;" class="btn btn-success btn-lg btn-block" id="imprime"
+                    value="Imprime ticket" onclick=imprimeTicket() type="button">
+                </td>
+                -->
+                  <tr>
+                    <td>
+                      <label></label>
+                    </td>
+                    <td style="width:500px;hight=100px;" colspan="3">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label>Notas</label>
+                    </td>
+                    <td style="width:500px;" colspan="3">
+                      <input style="width:500px;" name="nota" id="nota"></input>
+                      <input style="width:500px;" name="guardacliente" id="guardacliente" hidden></input>
+                      <!-- estos campos son para guardar cliente nuevo los pongo aca porque no me los lee de la ventana modal-->
+                      <input type="text" name="nombre" id="nombre" hidden />
+                      <input type="text" name="calle" id="calle" hidden />
+                      <input type="text" name="localidad" id="localidad" hidden />
+                      <input type="text" name="telefono" id="telefono" hidden />
+                      <input type="text" name="iva" id="iva" hidden>
+                      <input type="text" name="cuit" id="cuit" hidden />
+                      <input type="text" name="mail" id="mail" hidden />
+
+                      <input type="text" name="categoria" id="categoria" value="2" hidden />
+
+
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </form>
+
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+  <script type="text/javascript">
+    console.log("pedidos entrada :", document.getElementById("combo_pedidos").options.length)
+    console.log("pedidos preparacion :", document.getElementById("combo_pedidos2").options.length)
+    document.getElementById('items').value = document.getElementById("combo_pedidos").options.length;
+    document.getElementById('items2').value = document.getElementById("combo_pedidos2").options.length;
+
+    function myFunction(e) {
+      console.log("entro aca")
+      // document.getElementById("saldo").value = e.options[e.selectedIndex].getAttribute("data-saldo");
+      document.getElementById("id_cliente").value = e.options[e.selectedIndex].getAttribute("value");
+      document.getElementById("cliente").value = e.options[e.selectedIndex].getAttribute("title");
+
+    }
+    if (document.getElementById('condicion4').checked) {
+
+
+      console.log("por aca");
+    }
+    var var_caja = "Negocio";
+    console.log("empiezo")
+    document.getElementById('guardacliente').value = "NO";
+    /*
+        $('#combo_cliente').change(function () {
+          console.log('cambio cliente');
+          console.log(document.getElementById('combo_cliente').value);
+          document.getElementById('id_cliente').value = document.getElementById('combo_cliente').value;
+    
+         // if (tipodeventa == "Comercio") {
+            console.log('entro cambio cliente comercio', document.getElementById('combo_cliente').value);
+            //document.getElementById('cliente').value = e.options[e.selectedIndex].getAttribute("title");
+            document.getElementById('id_cliente').hidden = false;
+        //  }
+        });
+    */
+    $('#tipo').change(function () {
+      console.log('cambio iva');
+      console.log(document.getElementById('tipo').value);
+      document.getElementById('iva').value = document.getElementById('tipo').value;
+    });
+    var tipodeventa = document.getElementById('tipodeventa').value;
+    field = document.querySelector('#caja');
+    field.value = "Negocio";
+    console.log("tpo", tipodeventa)
+
+    if (tipodeventa == "Particular") {
+      // document.getElementById('pago').hidden = false
+      // document.getElementById('combo_cliente').type = true
+      document.getElementById('id_cliente').hidden = true
+    }
+    else {
+     // document.getElementById('cliente').hidden = true
+     // document.getElementById('combo_cliente').hidden = false
+     // document.getElementById('id_cliente').hidden = false
+     // document.getElementById('btnmodal').hidden = false
+    }
+
+    $(document).on("change", "input[type=radio]", function () {
+      console.log("envio ");
+      if (document.getElementById('condicion1').checked) {
+        console.log("condicion1");
+        document.getElementById('pago').hidden = false
+        document.getElementById('vuelto').hidden = false
+        document.getElementById('id_cliente').hidden = true;
+        document.getElementById('combo_cliente').hidden = true
+        document.getElementById('btnmodal').hidden = true;
+        document.getElementById('cliente').hidden = false
+      }
+      else if (document.getElementById('condicion2').checked) {
+        console.log("condicion2");
+        document.getElementById('pago').hidden = true
+        document.getElementById('vuelto').hidden = true
+        document.getElementById('id_cliente').hidden = true;
+        document.getElementById('combo_cliente').hidden = true
+        document.getElementById('btnmodal').hidden = true;
+        document.getElementById('cliente').hidden = false
+
+      }
+      else if (document.getElementById('condicion3').checked) {
+        console.log("condicion3");
+        document.getElementById('pago').hidden = true
+        document.getElementById('vuelto').hidden = true
+        document.getElementById('id_cliente').hidden = true;
+        document.getElementById('combo_cliente').hidden = true
+        document.getElementById('btnmodal').hidden = true;
+        document.getElementById('cliente').hidden = false
+      }
+      else if (document.getElementById('condicion4').checked) {
+        console.log("condicion4");
+        document.getElementById('pago').hidden = true
+        document.getElementById('vuelto').hidden = true
+        document.getElementById('cliente').hidden = true
+        document.getElementById('id_cliente').hidden = false;
+        document.getElementById('combo_cliente').hidden = false;
+        document.getElementById('btnmodal').hidden = false;
+
+
+      }
+      if (tipodeventa == "Comercio") {
+        document.getElementById('cliente').hidden = true
+        document.getElementById('id_cliente').hidden = false;
+        document.getElementById('combo_cliente').hidden = false;
+        document.getElementById('btnmodal').hidden = false;
+      }
+    });
+
+    $(document).on("change", "input[type=radio]", function () {
+      console.log("envio ");
+      if (document.getElementById('tipo1').checked) {
+        var_caja = "Negocio"
+        console.log("var_caja", var_caja);
+        field = document.querySelector('#caja');
+        field.value = "Negocio";
+
+      }
+      else if (document.getElementById('tipo2').checked) {
+        var_caja = "Reparto"
+        console.log("var_caja", var_caja);
+        field = document.querySelector('#caja');
+        field.value = "Reparto";
+      }
+    });
+
+    var mydata = [];
+    console.log(mydata);
+
+    $(document).ready(function () {
+
+      $('#visible').change(function () {
+        if (this.checked) {
+          console.log('1');
+        } else {
+          console.log('0');
+        }
+      });
+
+      var self = this;
+
+      $('#search').keyup(function () {
+        search_table($(this).val());
+      });
+
+
+      $('#pago').keyup(function () {
+        ptotal = document.querySelector('#total');
+        ptotal.value = parseFloat(total.toFixed(0));
+        //mpago = document.querySelector('#pago');
+        mpago = ptotal.value;
+        mvuelto = (mpago.value - ptotal.value).toFixed(0)
+        console.log("ptotal :", ptotal.value, "mpago :", mpago.value, "vuelto :", mvuelto)
+        field = document.querySelector('#vuelto');
+        field.value = mvuelto;
+      });
+
+      $('#cambia_costo').keyup(function () {
+        console.log("cambia costo")
+        //calcula_precio($(this).val());
+      });
+
+      function search_table(value) {
+
+        $('#tabla tr').each(function () {
+          var found = 'false';
+
+          $(this).each(function () {
+            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+              found = 'true';
+            }
+          });
+
+          if (found == 'true') {
+            $(this).show();
+          }
+          else {
+            $(this).hide();
+          }
+
+        });
+      }
+    });
+
+
+
+    $('.sumacompra').on('click', function (e) {
+
+      console.log('agregar carrito');
+      console.log("e. target", e.target);
+
+
+
+      var id = (e.target.value);
+      console.log("id :", id);
+      console.log("tpos ", tipodeventa)
+
+      if (tipodeventa == "Comercio") {
+
+        costo = parseFloat($("#precio2_" + id).val());
+        console.log("Comercio", costo);
+      }
+      else {
+        costo = parseFloat($("#precio1_" + id).val());
+        console.log("Particular", costo);
+
+      }
+      console.log("costo", costo);
+
+      cant = 0;
+      //console.log("cantidad :", cant);
+
+      while (cant <= 0) {
+        cant = 1;
+        console.log("entro1")
+        var cant = prompt(" Cantidad : ", cant);
+        console.log("cantidada", cant)
+        if (!cant || cant == 0) {
+          console.log("entro")
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'entre cantidad ',
+            showConfirmButton: true
+          });
+          return
+        }
+        else {
+          cant = parseFloat(cant).toFixed(3)
+        }
+
+        console.log("cant: ", Number(cant))
+
+
+      }
+      //var cant = parseFloat(prompt("Cantidad : ", cant));
+      //cant = cant.toFixed(3);
+      console.log("cantidad afuera :", cant);
+      //var costo_temp = parseFloat(prompt("Precio : ", costo));
+      //cantdedesc_temp =  ".descuentoapartir_" + id;
+
+
+      // calculo precio unitario segun la cantidad solo partiulares
+
+
+
+      descuentoapartir = parseFloat($("#Descuentoapartir_" + id).val())
+      console.log("cantidad a partir de descuento", descuentoapartir)
+
+      var descuentoxunidad = parseFloat($("#Descuentoxunidad_" + id).val())
+      console.log("cantidad de descuento", descuentoxunidad)
+      desctemp = $("#desc_" + id).val();
+      if (tipodeventa == "Particular") {
+        if (cant > descuentoapartir & descuentoapartir > 0) {
+          costo = costo - descuentoxunidad
+          desctemp = "* " + desctemp
+        }
+        console.log("conto condescutnto", costo)
+      }
+
+
+      var costo_temp = parseFloat(costo);
+      costo_temp = costo_temp.toFixed(2);
+
+      console.log("costo_temp 1:", costo_temp);
+      /*
+            if (cant>=descuentoapartir){
+                costo_temp = costo_temp-descuentoxunidad
+                      console.log("costo_temp 2:", costo_temp);
+            }
+      */
+      var largomydata = mydata.length + 1;
+      console.log("largo mydata : ", largomydata);
+      //console.log("porcentaje precio2 1:", parseFloat($("#porcprecio2_" + id).val()));
+      console.log("costo_temp :", costo_temp);
+      //mayor_temp = (parseFloat($("#porcprecio2_" + id).val()) / 100 * costo_temp + parseFloat(costo_temp)).toFixed(2);
+      //final_temp = (parseFloat($("#porcprecio1_" + id).val()) / 100 * costo_temp + parseFloat(costo_temp)).toFixed(2);
+
+
+      //console.log("mayor_temp : ", mayor_temp)
+      const infoProducto = {
+        id: id,
+        desc: desctemp,
+        cant: parseFloat(cant).toFixed(3),
+        costo: parseFloat(costo_temp).toFixed(0),
+        //fecha: $("fecha_" + id).value,
+        //porcprecio1: parseFloat($("#porcprecio1_" + id).val()),
+        //mayor: mayor_temp,
+
+        subttl: parseFloat((cant * costo)).toFixed(0),
+        //porcprecio2: parseFloat($("#porcprecio2_" + id).val()),
+        //final: final_temp,
+        id_borrado: largomydata,
+        desc_original: $("#desc_" + id).val(),
+        costo_original: parseFloat($("#precio1_" + id).val()),
+      };
+      //console.log("subtotal:", subttl);
+      console.log("infoproducto : ", infoProducto);
+      //console.log(infoProducto);
+      mydata.push(infoProducto);
+      console.log("Legth mydata :", mydata.length.toString());
+      let largo = mydata.length.toString();
+      console.log("mydata :", largo);
+
+
+
+      const row = document.createElement('tr');
+      // id="+String.fromCharCode(34)+largo.toString()+String.fromCharCode(34));
+      console.log("row antes: ", row);
+      //console.log("tamaño : ",  mydata.length.toString() )
+      //row= row+ mydata.length;
+      //console.log("row despues: ",row);
+
+      var trs = $("table tbody tr");
+      var idnuevo = 0;
+      console.log("trs ", trs);
+
+      $.each(trs, function (i, tr) {
+        if (!$(tr).attr('id')) {
+          idnuevo = i + 1;
+        }
+      });
+
+
+      row.innerHTML = `
+               <tr style="color:black;font-size:80%;">
+                <td style="color:black;font-size:70%;" id="${largo}">
+                    <input type="button" value="${infoProducto.id}" name="idproducto_${largo}" id="idproducto_${largo}" hidden="true"></input>
+                </td>
+                <td style="color:black;font-size:70%;" id="${largo}">
+                    <input type="button" value="${infoProducto.desc}" class="desc_${largo}" name="desc_${largo}" id="desc_${largo}"></input>
+                </td>
+                <td style="color:black;font-size:70%;" align="right" class="text-right" id="${largo}">
+                   <input type="button" text-align="right" onclick=cambio_cantidad(this,11${largo}) 
+                    value="${cant}" class="cant_11${largo}" name="cant_11${largo}" id="cant_11${largo}"></input>
+                </td>
+                <td style="color:black;font-size:70%;" class="text-right" contenteditable='true'  id="${largo}">
+                   <input type="button" value="${infoProducto.costo}" class="costo_11${largo}" name="costo_11${largo}" id="costo_11${largo}"
+                      ></input>
+                </td>
+                 <td style="color:black;font-size:70%;" class="text-right" contenteditable='true'  id="${largo}">
+                  <input type="button" value="${infoProducto.subttl}" class="subttl_${largo}" name="subttl_${largo}" id="subttl_${largo}"></input>
+                </td>
+                <td style="color:black;font-size:70%;" class="text-right" contenteditable='true'  id="${largo}">
+              
+                </td>
+                <td style="color:black;font-size:70%;" class="text-center">
+
+                   <input onclick=eliminarProducto(this) type="button" value="X"
+                    style="font-size:24px;color:white; font-size:80%; background-color:red;" id="${largo}"></input>
+                    <input type="text" value="${infoProducto.id}" name="cod" hidden="true"></input>
+                    <input type="text" value="${cant}" class="cant${largo}" id="cant${largo}" name="cant" hidden="true" ></input>
+                    <input type="text" value="${infoProducto.desc}" class="desc${largo}" id="desc${largo}" name="desc" hidden="true"></input>
+                    <input type="text" value="${infoProducto.costo}" class="costo${largo}" id="costo${largo}" name="costo" hidden="true" ></input>
+                    <input type="text" value="${infoProducto.subttl}" class="subttl${largo}" id="subttl${largo}" name="subttl" hidden="true" ></input>
+         
+                   
+            
+      
+                  
+                </td>
+              </tr>
+              `;
+
+      //var elt=document.getElementById("lista_compra");
+      //console.log("elt ", elt);
+      //console.log("elt.firstChild.id ", elt.firstChild.id);
+      //var out=document.getElementById("out");
+      //out.innerHTML="name="+elt.firstChild.name+",id="+elt.firstChild.id
+      console.log("row a agregar: ", row);
+      listaCompra.appendChild(row);
+      //$("table tbody tr").attr('id', mydata.length);
+      // $("tr").attr('id', mydata.length);
+      //location.reload();
+      subttl_temp = ".subttl_" + largo;
+      console.log("subttl_temp", subttl_temp);
+      console.log("cant : ", cant, ",cost_temp :", costo_temp);
+      document.querySelector(subttl_temp).value = parseFloat(cant * costo_temp).toFixed(0);
+
+      $(document).ready(function () {
+        var trs = $("table tbody tr");
+        // console.log("trs ", trs);
+        $.each(trs, function (i, tr) {
+          if (!$(tr).attr('id')) {
+            // i+1  
+            $(tr).attr('id', largo);
+          }
+        });
+      });
+      total = 0;
+      mlargo = 0;
+
+
+
+      // calculo el total general
+      $("#lista_compra tbody tr").each(function (idx, fila) {
+        total = parseFloat(total) + parseFloat(fila.children[4].firstElementChild.value);
+        console.log("total item", idx, " :", parseFloat(fila.children[4].firstElementChild.value));
+        mlargo = mlargo + 1;
+      });
+      field = document.querySelector('#total');
+      field.value = parseFloat(total.toFixed(2));
+      $("#total_tabla").text(total);
+      $("#item_tabla").text(mlargo);
+      console.log("total general", total);
+      field = document.querySelector('#largo');
+      field = document.querySelector('#largo');
+      field.value = mlargo;
+      field = document.querySelector('#pago');
+      field.value = parseFloat(total.toFixed(2));
+      console.log("Pago general", total);
+
+    });
+
+
+
+    function eliminarProducto(ctl) {
+      // console.log('eliminar producto :',productoaeliminar);
+      console.log("ctl", ctl);
+      $(ctl).parents("tr").remove();
+
+      total = 0;
+      mlargo = 0;
+      $("#lista_compra tbody tr").each(function (idx, fila) {
+        total = total + parseFloat(fila.children[4].firstElementChild.value);
+        mlargo = mlargo + 1;
+      });
+      field = document.querySelector('#total');
+      field.value = total;
+      $("#total_tabla").text(total);
+      $("#item_tabla").text(mlargo);
+      console.log("total ", total);
+      field = document.querySelector('#largo');
+      field = document.querySelector('#largo');
+      field.value = mlargo;
+    };
+
+
+
+
+    function validar() {
+      console.log("validar");
+      if (tipodeventa == "Comercio" || var_caja == 'Reparto') {
+        cliente = document.getElementById('cliente').value.trim();
+        console.dir(cliente);
+        if (cliente == null || cliente.length == 0) {
+          document.getElementById("combo_cliente").focus();
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Elija un cliente???',
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          return false;
+        }
+      }
+      /*if (var_caja == 'Reparto'){
+        cliente = document.getElementById('cliente').value.trim();
+        console.dir(cliente);
+        if (cliente == null || cliente.length == 0) {
+          document.getElementById("cliente").focus();
+          return false;
+        }
+      }
+      */
+
+      if ((document.getElementById('condicion1').checked) ||
+        (document.getElementById('condicion2').checked) ||
+        (document.getElementById('condicion3').checked) ||
+        (document.getElementById('condicion4').checked)) {
+        console.log("true");
+      }
+      else {
+        console.log("falso");
+        document.getElementById("condicion1").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Cómo paga???',
+        });
+        return false;
+      }
+      cambio_fecha()
+
+      condicion = ""
+
+
+
+
+
+      if (document.getElementById('condicion1').checked) {
+        var condicion = "Efectivo"
+      }
+
+      else if (document.getElementById('condicion2').checked) {
+        var condicion = "Debito"
+      }
+      else if (document.getElementById('condicion3').checked) {
+        var condicion = "Transferencia"
+      }
+
+
+      console.log("condicion :", condicion);
+      var pago = document.getElementById('pago').value;
+      if (pago == "") {
+        pago = 0;
+      }
+      console.log("Pago :", pago);
+
+      var table = document.getElementById("prod_compra");
+      console.log("table", table);
+      total = 0;
+      $("#lista_compra tbody tr").each(function (idx, fila) {
+        total = total + parseFloat(fila.children[4].firstElementChild.value);
+      });
+      field = document.querySelector('#total');
+      field.value = total;
+      console.log("total validar ", total);
+
+
+
+      if (total <= 0) {
+        console.log("entro en total", total);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'total 0'
+        });
+      }
+
+
+      if (condicion == "Efectivo") {
+
+        console.log("entro en condicion1")
+        if (pago <= 0) {
+
+          console.log("entro en pago ", pago);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'cargue con cuanto pago',
+          });
+          document.getElementById("pago").focus();
+          return false;
+          document.getElementById("pago").focus();
+        }
+      }
+
+      if (total > 0) {
+        console.log("entro en pago ", pago);
+        if (pago > 0) {
+          salgo_aprocesar()
+          //document.getElementById("procesarventa").submit();
+        };
+        console.log("antes condicion :", condicion);
+
+        if (condicion !== "Efectivo") {
+          salgo_aprocesar()
+
+        }
+      }
+
+      if (document.getElementById('reparto').value == "") {
+        var_caja = "Mostrador"
+      }
+      else {
+        var_caja = "Reparto"
+      }
+      console.log("var_caja")
+      console.log(pepe)
+      /*
+      field = document.querySelector('#caja');
+      field.value = caja;
+      console.log("total validar ", total);
+      */
+    }
+
+
+    function salgo_aprocesar() {
+      document.getElementById('boton').value = 'Enviando, por favor espere...';
+      document.getElementById('boton').disabled = true;
+      Swal.fire({
+        icon: 'success',
+        title: 'Genial...',
+        text: 'Procesando venta',
+        showConfirmButton: false,
+        timer: 5000
+      });
+      document.getElementById("procesarventa").submit();
+    }
+
+
+    function cambio_cantidad(row, id) {
+      console.log("Funcion de cambio de cantidad ");
+      codigo = $("#idproducto_" + id).val()
+      console.log("codigo de producto", codigo);
+      costo_temp = ".costo_" + id;
+      costo_actual = parseFloat(document.querySelector(costo_temp).value).toFixed(2);
+
+      cant_temp = ".cant_" + id;
+      cant_actual = parseFloat(document.querySelector(cant_temp).value).toFixed(3);
+      console.log("cantidad actual2", cant_actual)
+      var doc = document.getElementById("lista_compra");
+      var cant = row.value;
+      //console.log("cantidad  3", cant);
+      // var cant_nuevo = cargo_cant(cant)
+/*
+      var descuentoapartir = parseFloat($("#descuentoapartir" + id).val())
+      console.log("cantidad a partir de descuento",descuentoapartir)
+      var descuentoxunidad =  parseFloat($("#descuentoxunidad" + id).val())
+      console.log("cantidad de descuento",descuentoxunidad)
+
+      var descripcion_temporal= $("#descOriginal_" + id).val()
+      console.log("descripcion original 1", descripcion_temporal)
+*/
+      descuentoapartir = parseFloat($("#Descuentoapartir_" + codigo).val())
+      console.log("cantidad a partir de descuento",descuentoapartir)
+
+      var descuentoxunidad =  parseFloat($("#Descuentoxunidad_" + codigo).val())
+      console.log("cantidad de descuento",descuentoxunidad)
+      descripcion_temporal = $("#desc_" + codigo).val();
+
+      console.log("entro en cargo_cant")
+      var cant_nuevo = 0
+      while (cant_nuevo <= 0) {
+        console.log("entro1")
+
+        var cant_nuevo = prompt("Cambio de Cantidad : ", cant);
+        console.log("cantidad",cant_nuevo)
+        if (!cant_nuevo || cant_nuevo==0){
+          console.log("entro")
+               Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'entre cantidad',
+                showConfirmButton: true
+              });
+            return
+          }
+        else {
+          cant_nuevo =parseFloat(cant_nuevo).toFixed(3)
+        }
+
+
+
+        //var cant_nuevo = parseFloat(prompt("Cambio de Cantidad : ", cant)).toFixed(3);
+        row.value = cant_nuevo;
+        console.log("cant_nuevo: ", Number(cant_nuevo))
+        if (Number(cant_nuevo) <= 0) {
+          console.log("entro2")
+          if (Number(cant_nuevo) <= 0) {
+            console.log("entro3")
+            console.log("total", cant_nuevo);
+          }
+        }
+      }
+      console.log("cant_nuevo: ", cant_nuevo)
+      console.log("row.value antes", row.value)
+      row.value = cant_nuevo;
+      console.log("row.value despues", row.value)
+
+      cant_temp = ".cant" + id;
+      console.log("cant_temp :", cant_temp)
+      console.log("hola document.querySelector(cant_temp).value :", document.querySelector(cant_temp))
+      document.querySelector(cant_temp).value = parseFloat(cant_nuevo).toFixed(3);
+      console.log("cant_nuevo despues de la funcion", cant_nuevo)
+
+      // calculo precio unitario para descuento por horma
+
+     
+      if (tipodeventa == "Particular") {
+        costo_actual = parseFloat($("#precio1_" + codigo).val())
+        console.log("costo original", costo_actual)
+
+        
+        if (cant_nuevo>=descuentoapartir & descuentoapartir>0){
+          console.log("entro")
+          console.log("costo_actual adentro del if", costo_actual)
+          costo_actual = costo_actual - descuentoxunidad
+          console.log("costo_actual despues de la resta", costo_actual)
+          descripcion_temporal = "* "+ $("#desc_" + codigo).val();
+          //document.querySelector(desctemp).value = ""
+        }
+        // actualizo descripcion de la tabla que se ve
+        desctemp = ".desc_" + id;
+        document.querySelector(desctemp).value = descripcion_temporal
+           // actualizo descripcion de la tabla que NO se ve
+        desctemp = ".desc" + id;
+        document.querySelector(desctemp).value = descripcion_temporal
+        // actualizo precio uitario de la tabla que se ve
+        costotemp =  ".costo_" + id;
+        document.querySelector(costotemp).value = parseFloat( costo_actual).toFixed(0);
+                // actualizo precio uitario de la tabla que se ve
+        costotemp =  ".costo" + id;
+        document.querySelector(costotemp).value = parseFloat( costo_actual).toFixed(0);
+
+
+        console.log("costo con descuetnto", costo_actual)
+      }
+      
+
+
+      subttl_temp = ".subttl" + id;
+      document.querySelector(subttl_temp).value = parseFloat(cant_nuevo * costo_actual).toFixed(0);
+      // actualizo subtotal
+      subttl_temp = ".subttl_" + id;
+      console.log(" subttl_temp = ", subttl_temp)
+      //console.log("antes Sub total " + id, document.querySelector(subttl_temp).value)
+      document.querySelector(subttl_temp).value = parseFloat(cant_nuevo * costo_actual).toFixed(0);
+      //console.log("Sub total despues", document.querySelector(subttl_temp).value)
+
+
+
+
+      // actualizo cantidad
+      cant_temp = ".cant_" + id;
+      console.log("cant_temp ", cant_temp)
+      console.log("document.querySelector(cant_temp).value antes", document.querySelector(cant_temp).value)
+      document.querySelector(cant_temp).value = parseFloat(cant_nuevo).toFixed(3);
+      console.log("document.querySelector(cant_temp).value despues", document.querySelector(cant_temp).value)
+      console.log("cant_temp: ", document.querySelector(cant_temp).value)
+      // calculo precio unitario segun la cantidad
+
+      total = 0;
+      $("#lista_compra tbody tr").each(function (idx, fila) {
+        total = total + parseFloat(fila.children[4].firstElementChild.value);
+      });
+      field = document.querySelector('#total');
+      field.value = total;
+      $("#total_tabla").text(total);
+      console.log("total ", total);
+
+      console.log("row despues de cambio cantidad: ", row);
+      var table = document.getElementById("prod_compra");
+      console.log("table", table);
+    }
+
+ 
+
+
+    function cambio_cantidad1(row, id) {
+      console.log("Funcion de cambio de cantidad id", id);
+       codigo = $("#idproducto_11" + id).val()
+      console.log("codigo de producto", codigo);
+      costo_temp = ".costo_11" + id;
+      costo_actual = parseFloat(document.querySelector(costo_temp).value).toFixed(2);
+
+      cant_temp = ".cant_11" + id;
+      cant_actual = parseFloat(document.querySelector(cant_temp).value).toFixed(3);
+      console.log("cantidad actual2", cant_actual)
+      var doc = document.getElementById("lista_compra");
+      var cant = row.value;
+      //console.log("cantidad  3", cant);
+      // var cant_nuevo = cargo_cant(cant)
+      /*
+            var descuentoapartir = parseFloat($("#descuentoapartir" + id).val())
+            console.log("cantidad a partir de descuento",descuentoapartir)
+            var descuentoxunidad =  parseFloat($("#descuentoxunidad" + id).val())
+            console.log("cantidad de descuento",descuentoxunidad)
+      
+            var descripcion_temporal= $("#descOriginal_" + id).val()
+            console.log("descripcion original 1", descripcion_temporal)
+      */
+      descuentoapartir = parseFloat($("#Descuentoapartir_" + codigo).val())
+      console.log("cantidad a partir de descuento", descuentoapartir)
+
+      var descuentoxunidad = parseFloat($("#Descuentoxunidad_" + codigo).val())
+      console.log("cantidad de descuento", descuentoxunidad)
+      descripcion_temporal = $("#desc_" + codigo).val();
+
+      console.log("entro en cargo_cant")
+      var cant_nuevo = 0
+      while (cant_nuevo <= 0) {
+        console.log("entro1")
+
+        var cant_nuevo = prompt("Cambio de Cantidad : ", cant);
+        console.log("cantidad", cant_nuevo)
+        if (!cant_nuevo ) {
+          console.log("entro")
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'entre cantidad',
+            showConfirmButton: true
+          });
+          return
+        }
+        else {
+          cant_nuevo = parseFloat(cant_nuevo).toFixed(3)
+        }
+
+
+
+        //var cant_nuevo = parseFloat(prompt("Cambio de Cantidad : ", cant)).toFixed(3);
+        row.value = cant_nuevo;
+        console.log("cant_nuevo: ", Number(cant_nuevo))
+        if (Number(cant_nuevo) <= 0) {
+          console.log("entro2")
+          if (Number(cant_nuevo) <= 0) {
+            console.log("entro3")
+            console.log("total", cant_nuevo);
+          }
+        }
+      }
+      console.log("cant_nuevo: ", cant_nuevo)
+      console.log("row.value antes", row.value)
+      row.value = cant_nuevo;
+      console.log("row.value despues", row.value)
+
+      cant_temp = ".cant" + id;
+      console.log("cant_temp :", cant_temp)
+      console.log("hola document.querySelector(cant_temp).value :", document.querySelector(cant_temp))
+      document.querySelector(cant_temp).value = parseFloat(cant_nuevo).toFixed(3);
+      console.log("cant_nuevo despues de la funcion", cant_nuevo)
+
+      // calculo precio unitario para descuento por horma
+
+
+      if (tipodeventa == "Particular") {
+        costo_actual = parseFloat($("#precio1_11" + codigo).val())
+        console.log("costo original", costo_actual)
+
+
+        if (cant_nuevo > descuentoapartir & descuentoapartir > 0) {
+          console.log("entro")
+          console.log("costo_actual adentro del if", costo_actual)
+          costo_actual = costo_actual - descuentoxunidad
+          console.log("costo_actual despues de la resta", costo_actual)
+          descripcion_temporal = "* " + $("#desc_11" + codigo).val();
+          //document.querySelector(desctemp).value = ""
+        }
+        // actualizo descripcion de la tabla que se ve
+        desctemp = ".desc_11" + id;
+        document.querySelector(desctemp).value = descripcion_temporal
+        // actualizo descripcion de la tabla que NO se ve
+        desctemp = ".desc11" + id;
+        document.querySelector(desctemp).value = descripcion_temporal
+        // actualizo precio uitario de la tabla que se ve
+        costotemp = ".costo_11" + id;
+        document.querySelector(costotemp).value = parseFloat(costo_actual).toFixed(0);
+        // actualizo precio uitario de la tabla que se ve
+        costotemp = ".costo11" + id;
+        document.querySelector(costotemp).value = parseFloat(costo_actual).toFixed(0);
+
+
+        console.log("costo con descuetnto", costo_actual)
+      }
+
+
+
+      subttl_temp = ".subttl11" + id;
+      document.querySelector(subttl_temp).value = parseFloat(cant_nuevo * costo_actual).toFixed(0);
+      // actualizo subtotal
+      subttl_temp = ".subttl_11" + id;
+      console.log(" subttl_temp = ", subttl_temp)
+      //console.log("antes Sub total " + id, document.querySelector(subttl_temp).value)
+      document.querySelector(subttl_temp).value = parseFloat(cant_nuevo * costo_actual).toFixed(0);
+      //console.log("Sub total despues", document.querySelector(subttl_temp).value)
+
+
+
+
+      // actualizo cantidad
+      cant_temp = ".cant_" + id;
+      console.log("cant_temp ", cant_temp)
+      console.log("document.querySelector(cant_temp).value antes", document.querySelector(cant_temp).value)
+      document.querySelector(cant_temp).value = parseFloat(cant_nuevo).toFixed(3);
+      console.log("document.querySelector(cant_temp).value despues", document.querySelector(cant_temp).value)
+      console.log("cant_temp: ", document.querySelector(cant_temp).value)
+      // calculo precio unitario segun la cantidad
+
+      total = 0;
+      $("#lista_compra tbody tr").each(function (idx, fila) {
+        total = total + parseFloat(fila.children[4].firstElementChild.value);
+      });
+      field = document.querySelector('#total');
+      field.value = total;
+      $("#total_tabla").text(total);
+      console.log("total ", total);
+
+      console.log("row despues de cambio cantidad: ", row);
+      var table = document.getElementById("prod_compra");
+      console.log("table", table);
+    }
+
+    const listaCompra = document.querySelector("#lista_compra tbody");
+    cambio_fecha()
+
+
+
+
+    function total() {
+
+      console.log("ejecutando total")
+      total = 0;
+      $("#lista_compra tbody tr").each(function (idx, fila) {
+        total = total + parseFloat(fila.children[4].firstElementChild.value);
+      });
+      field = document.querySelector('#total');
+      field.value = total;
+      $("#total_tabla").text(total);
+      console.log("total ", total);
+
+    }
+
+    function cambio_fecha() {
+      d = new Date();
+      var z = n => ('0' + n).slice(-2);
+      date = z(d.getUTCDate()) + '/' + z(d.getMonth() + 1) + '/' + z(d.getYear());
+      console.log("date :", date);
+      field = document.querySelector('#fecha');
+      field.value = date;
+      console.log(field.value);
+
+      hora = z(d.getHours()) + ':' +
+        z(d.getMinutes());
+      field = document.querySelector('#horalocal');
+      field.value = hora;
+      console.log("hora :", hora);
+    }
+
+    function actual() {
+      fecha = new Date(); //Actualizar fecha.
+      dia = fecha.getDate(); //dia actual
+      mes = fecha.getMonth() + 1; // mes actual
+      año = fecha.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      mireloj = dia + "/" + mes + "/" + año + "&nbsp&nbsp" +
+        hora + ":" + minuto + ":" + segundo;
+      return mireloj;
+    }
+
+    /*function actualizar() { //función del temporizador
+      mihora = actual(); //recoger hora actual
+      mireloj = document.getElementById("reloj"); //buscar elemento reloj
+      mireloj.innerHTML = mihora; //incluir hora en elemento
+    }
+    setInterval(actualizar, 1000); //iniciar temporizador
+*/
+    function nvocliente() {
+      console.log("nvocliente");
+      var linea = "/cliente ";
+      console.log("linea ", linea);
+      window.open(linea, "byspel", "width=600,height=600,menubar=no");
+    }
+
+
+
+    $(document).on("click", "#btnmodal", function () {
+      console.log("pasa")
+      var nombre = $(this).data('nom');
+      var nombre_cliente = $("#nombre").val(nombre);
+      var calle = $("#calle").val(calle);
+      var localidad = $("#localidad").val(localidad);
+      var telefono = $("#telefono").val(telefono);
+      var iva = $("#iva").val(iva);
+      var cuit = $("#cuit").val(cuit);
+      var mail = $("#mail").val(mail);
+      // var categoria2 = $("#categoria").val(categoria);
+      document.getElementById('iva').value = document.getElementById('tipo').value;
+
+
+
+    })
+
+
+    function check(e) {
+      tecla = (document.all) ? e.keyCode : e.which;
+
+      //Tecla de retroceso para borrar, siempre la permite
+      if (tecla == 8) {
+        document.getElementById("saldonuevo").value = document.getElementById("monto").value.trim();
+        return true;
+      }
+
+      // Patron de entrada, en este caso solo acepta numeros y letras
+      patron = /[0-9.]/;
+      tecla_final = String.fromCharCode(tecla);
+
+      return patron.test(tecla_final);
+    }
+
+    function guardacliente() {
+
+      if (document.getElementById('mnombre').value == 0) {
+        console.log("no hay cliente")
+        document.getElementById('guardacliente').value = "NO";
+        document.getElementById("nombre").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'Cargue un cliente',
+          text: ' ',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+        return false;
+      }
+      else {
+        document.getElementById('guardacliente').value = "SI";
+        document.getElementById('id_cliente').value = "nuevo";
+        document.getElementById('cliente').hidden = false
+        document.getElementById('combo_cliente').hidden = true
+        document.getElementById('cliente').value = document.getElementById('mnombre').value
+        document.getElementById('nombre').value = document.getElementById('mnombre').value
+        document.getElementById('calle').value = document.getElementById('mcalle').value
+        document.getElementById('localidad').value = document.getElementById('mlocalidad').value
+        document.getElementById('telefono').value = document.getElementById('mtelefono').value
+        document.getElementById('iva').value = document.getElementById('tipo').value
+        document.getElementById('cuit').value = document.getElementById('mcuit').value
+        document.getElementById('mail').value = document.getElementById('mmail').value
+
+      }
+
+      $('#miModal').modal('hide');
+
+    }
+
+    function abremodal() {
+      //document.getElementById("categoria").value = "2";
+      //  $('#categoria').val('2');
+
+      $('#miModal').modal('show');
+    }
+
+
+  </script>
+  <!-- Modal -->
+  <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Carga de Cliente</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table style="height: 500px; font-size: 2rem;width=1500px">
+            <tbody>
+              <tr>
+                <td>Nombre</td>
+                <td>
+                  <input style="width:300px;height: 70px;" type="text" name="mnombre" id="mnombre" autocomplete="off" />
+                </td>
+              </tr>
+              <tr>
+                <td>Calle y Nro</td>
+                <td><input style="width:300px;height: 70px;" type="text" name="mcalle" id="mcalle" autocomplete="off" />
+                </td>
+              </tr>
+              <tr>
+                <td>Localidad</td>
+                <td><input style="width:300px;height: 70px;" type="text" name="mlocalidad" id="mlocalidad" /></td>
+              </tr>
+              <tr>
+                <td>Telefono</td>
+                <td><input style="width:300px;height: 70px;" type="text" name="mtelefono" id="mtelefono"
+                    autocomplete="off" onkeypress="return check(event)" /></td>
+              </tr>
+              <td style="height: 20px;font-size: 2rem;width: 200px;  text-align: left;">
+                <label type="text">Tipo de Iva</label>
+              </td>
+              <td style="height: 20px;font-size: 2rem;width: 250px;  text-align: right;">
+                <select id="tipo" value="{{tipo}}">
+                  <option selected value={{tipo}}>{{tipo}}</option>
+                  <option value="Monotributista">Monotributista</option>
+                  <option value="Inscripto">Responsable Inscripto</option>
+                  <option value="No Inscripto">Responsable No Inscripto</option>
+                  <option value="Exento">Exento</option>
+                  <option value="No Sabe">No Sabe</option>
+                </select>
+                <input style="font-size: 2rem;width: 70px;  text-align: left;" name="miva" id="miva" readonly hidden>
+              </td>
+              <tr>
+                <td>CUIT N°</td>
+                <td><input style="width:300px;height: 70px;" type="text" name="mcuit" id="mcuit" autocomplete="off"
+                    onkeypress="return check(event)" /></td>
+              </tr>
+              <tr>
+                <td>Mail</td>
+                <td><input style="width:300px;height: 70px;" type="email" name="mmail" id="mmail" autocomplete="off" />
+                </td>
+              </tr>
+              <tr>
+                <td>Categoria</td>
+                <td>
+                  {{#if comercio }}
+
+                  <input style="width:300px;height: 70px;" type="text" name="mcategoria" id="mcategoria" value="2"
+                    readonly />
+
+                  {{else}}
+                  <input style="width:300px;height: 70px;" type="text" name="mcategoria" id="mcategoria" value="1"
+                    readonly />
+                  {{/if}}
+                </td>
+
+              </tr>
+              <tr style="height: 100px;">
+                <td> <a></a> </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+          <input style="width:120px; height: 50px;  font-size: 2rem;" type="button" class="btn btn-primary"
+            onclick=guardacliente() value="Aceptar"></input>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+<footer class="oculto-impresion"></footer>
+
+<!--
+<html>
+
+<head>
+  <title>modal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+</head>
+-->

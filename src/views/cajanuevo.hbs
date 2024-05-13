@@ -1,0 +1,564 @@
+<body>
+
+  <div class="container p-4">
+    <div>
+
+        <div class="card_caja">
+          <form id="procesarcaja" action="/cajaNuevo" method="POST">
+            <table style="border-collapse: collapse; width: 500px;" border="1">
+              <tbody>
+                <tr>
+                  <td style="width: 250px; text-align: center;">Apertura de Caja</td>
+                  <td style="width: 250px; text-align: center;">Cierre de Caja</td>
+                </tr>
+                <tr>
+                  <td style="width: 350px;">
+                    <table style="border-collapse: collapse;" border="1">
+                      <tbody>
+                        <tr>
+                          <td style="width: 50px;">Deno</td>
+                          <td style="width: 80px;text-align: right;">Cant &nbsp;</td>
+                          <td style="width: 100px;text-align: right;">Total &nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td style="">10</td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre10" id="abre10">
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre10" id="ttlabre10" value=0 readonly>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td style="">20</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre20" id="abre20"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre20" id="ttlabre20" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">50</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre50" id="abre50"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre50" id="ttlabre50" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">100</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre100" id="abre100"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre100" id="ttlabre100" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">200</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre200" id="abre200"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre200" id="ttlabre200" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">500</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre500" id="abre500"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre500" id="ttlabre500" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">1000</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre1000" id="abre1000"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre1000" id="ttlabre1000" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">2000</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="abre2000" id="abre2000"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlabre2000" id="ttlabre2000" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">Totales</td>
+                          <td style="">&nbsp;</td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="ttlabre" id="ttlabre" readonly>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                  <td style="width: 350px;">
+                    <table style="border-collapse: collapse;" border="1">
+                      <tbody>
+                        <tr>
+                          <td style="width: 50px;">Deno</td>
+                          <td style="width: 800px;text-align: right;">Cant&nbsp;</td>
+                          <td style="width: 100px;text-align: right;">Total &nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td style="">10</td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra10" id="cierra10">
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra10" id="ttlcierra10" value=0 readonly>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td style="">20</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra20" id="cierra20"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra20" id="ttlcierra20" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">50</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra50" id="cierra50"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra50" id="ttlcierra50" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">100</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra100" id="cierra100"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra100" id="ttlcierra100" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">200</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra200" id="cierra200"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra200" id="ttlcierra200" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">500</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra500" id="cierra500"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra500" id="ttlcierra500" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">1000</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra1000" id="cierra1000"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra1000" id="ttlcierra1000" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">2000</td>
+                          <td>
+                            <input class="sinborde" style="font-size: 2rem;width: 80px;  text-align: right;"
+                              name="cierra2000" id="cierra2000"></input>
+                          </td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra2000" id="ttlcierra2000" value=0 readonly>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="">Totales</td>
+                          <td style="">&nbsp;</td>
+                          <td style="">
+                            <input class="sinborde" style="font-size: 2rem;width: 100px;  text-align: right;"
+                              name="ttlcierra" id="ttlcierra" readonly>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table>
+              <tr>
+                <table>
+                  <tr>
+                    <td colspan="2" style="width: 400px; text-align: center;">
+                      <input type="button" id="cancelar"
+                        style="background: #fa7373;width: 350px;text-align: center;font-size: 30px;"
+                        onclick=boton_cancelar() class="btn btn-danger btn-lg btn-block" value="Cancelar caja"
+                        hidden></input>
+                    </td>
+                    <td>
+                      <input style="width:120px; height: 50px;  font-size: 2rem;" type="button" class="btn btn-primary"
+                        onclick=grabar() value="Grabar" hidden></input>
+                    </td>
+                  </tr>
+                </table>
+
+              </tr>
+              </tbody>
+            </table>
+
+            <table>
+            <tr>
+               <td style="width:160px;  align-items: center; text-align: center;">
+                <label type="text">Caja Efectivo</label>
+
+                <input style="width:160px;height: 70px;font-size: 2rem; text-align:right;" type="text"
+                  name="ttldia" id="ttldia" ></input>
+
+              <td style="width:160px;  align-items: center; text-align: center;">
+                <label type="text">Venta del Sistema </label>
+                {{#each ventas}}
+                <input style="width:160px;height: 70px;font-size: 2rem; text-align:right;" type="text"
+                  name="total_neg_efec" id="total_neg_efec" value="{{total_efec}}"></input>
+                {{/each}}
+              </td>
+                <td style="width:160px;  align-items: center; text-align: center;">
+                <label type="text">Diferencia :</label>
+ 
+                <input style="width:160px;height: 70px;font-size: 2rem; text-align:right;" type="text"
+                  name="ttldif" id="ttldif" value="0"></input>
+
+              </td>
+            </tr>
+            </table>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+ <table>
+    <tr>
+      <td>
+        <button class="oculto-impresion btn btn-success" style="width: 440px;text-align: center;font-size: 30px;"
+          id="imprimir" onclick="imprimir()">Imprimir</button>
+      </td>
+    </tr>
+    <tr style="height: 100px;">
+
+
+
+  </table>
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+  <script type="text/javascript">
+
+   function imprimir() {
+      window.print();
+    }
+    document.getElementById('ttlabre').value = 0
+    document.getElementById('ttlcierra').value = 0
+    $('#abre10').change(function () {
+      document.getElementById('ttlabre10').value = (document.getElementById('abre10').value) * 10
+      total_abre()
+    });
+    $('#abre20').change(function () {
+      document.getElementById('ttlabre20').value = (document.getElementById('abre20').value) * 20
+      total_abre()
+    });
+    $('#abre50').change(function () {
+      document.getElementById('ttlabre50').value = (document.getElementById('abre50').value) * 50
+      total_abre()
+    });
+    $('#abre100').change(function () {
+      document.getElementById('ttlabre100').value = (document.getElementById('abre100').value) * 100
+      total_abre()
+    });
+    $('#abre200').change(function () {
+      document.getElementById('ttlabre200').value = (document.getElementById('abre200').value) * 200
+      total_abre()
+    });
+    $('#abre500').change(function () {
+      document.getElementById('ttlabre500').value = (document.getElementById('abre500').value) * 500
+      total_abre()
+    });
+    $('#abre1000').change(function () {
+      document.getElementById('ttlabre1000').value = (document.getElementById('abre1000').value) * 1000
+      total_abre()
+    });
+    $('#abre2000').change(function () {
+      document.getElementById('ttlabre2000').value = (document.getElementById('abre2000').value) * 2000
+      total_abre()
+    });
+
+
+
+    $('#cierra10').change(function () {
+      document.getElementById('ttlcierra10').value = (document.getElementById('cierra10').value) * 10
+      total_cierra()
+    });
+    $('#cierra20').change(function () {
+      document.getElementById('ttlcierra20').value = (document.getElementById('cierra20').value) * 20
+      total_cierra()
+    });
+    $('#cierra50').change(function () {
+      document.getElementById('ttlcierra50').value = (document.getElementById('cierra50').value) * 50
+      total_cierra()
+    });
+    $('#cierra100').change(function () {
+      document.getElementById('ttlcierra100').value = (document.getElementById('cierra100').value) * 100
+      total_cierra()
+    });
+    $('#cierra200').change(function () {
+      document.getElementById('ttlcierra200').value = (document.getElementById('cierra200').value) * 200
+      total_cierra()
+    });
+    $('#cierra500').change(function () {
+      document.getElementById('ttlcierra500').value = (document.getElementById('cierra500').value) * 500
+      total_cierra()
+    });
+    $('#cierra1000').change(function () {
+      document.getElementById('ttlcierra1000').value = (document.getElementById('cierra1000').value) * 1000
+      total_cierra()
+    });
+    $('#cierra2000').change(function () {
+      document.getElementById('ttlcierra2000').value = (document.getElementById('cierra2000').value) * 2000
+      total_cierra()
+    });
+
+    function total_abre() {
+      document.getElementById('ttlabre').value = parseFloat((document.getElementById('ttlabre2000').value)) + parseFloat((document.getElementById('ttlabre1000').value)) + parseFloat((document.getElementById('ttlabre500').value)) + parseFloat((document.getElementById('ttlabre200').value)) + parseFloat((document.getElementById('ttlabre100').value)) + parseFloat((document.getElementById('ttlabre50').value)) + parseFloat((document.getElementById('ttlabre20').value)) + parseFloat((document.getElementById('ttlabre10').value))
+      document.getElementById('ttldia').value = parseFloat((document.getElementById('ttlcierra').value)) - parseFloat((document.getElementById('ttlabre').value)) 
+      document.getElementById('ttldif').value = parseFloat((document.getElementById('ttldia').value)) - parseFloat((document.getElementById('total_neg_efec').value))
+    }
+    function total_cierra() {
+      document.getElementById('ttlcierra').value = parseFloat((document.getElementById('ttlcierra2000').value)) + parseFloat((document.getElementById('ttlcierra1000').value)) + parseFloat((document.getElementById('ttlcierra500').value)) + parseFloat((document.getElementById('ttlcierra200').value)) + parseFloat((document.getElementById('ttlcierra100').value)) + parseFloat((document.getElementById('ttlcierra50').value)) + parseFloat((document.getElementById('ttlcierra20').value)) + parseFloat((document.getElementById('ttlcierra10').value))
+      document.getElementById('ttldia').value = parseFloat((document.getElementById('ttlcierra').value)) - parseFloat((document.getElementById('ttlabre').value)) 
+      document.getElementById('ttldif').value = parseFloat((document.getElementById('ttldia').value)) - parseFloat((document.getElementById('total_neg_efec').value))
+    }
+    var fruta = 'hola';
+    var comentarios = '<p>Cargado por {{user.fullname}} el dia ' + fecha_actual() + '</p>';
+
+    var html = "";
+    html += `<div class="direct-chat-messages">${comentarios}</div>`;
+    $("#form-encabezado").html(html);
+
+    function set_comentario_ajax(valor) {
+      console.log(valor);
+    }
+    console.log("alta envio");
+    //document.getElementById('fechahoy').value = fecha_actual2()
+    //document.getElementById('fechapedido').value = fecha_actual2();
+    //document.getElementById('date').value = fecha_actual2();
+
+    $("#pedido").replaceWith('<textarea id="pedido" name="pedido" style="height: 300px;width: 500px;"></textarea>');
+
+    $("#nota").replaceWith('<textarea id="nota" name="nota" style="height: 150px;width: 500px;"></textarea>');
+
+
+    function myFunction(e) {
+      console.log("entro aca")
+      // document.getElementById("saldo").value = e.options[e.selectedIndex].getAttribute("data-saldo");
+      document.getElementById("id_cliente").value = e.options[e.selectedIndex].getAttribute("value");
+      document.getElementById("cliente").value = e.options[e.selectedIndex].getAttribute("title");
+      document.getElementById("saldo_cliente").value = e.options[e.selectedIndex].getAttribute("data-saldo");
+      console.log("saldo =", e.options[e.selectedIndex].getAttribute("data-saldo"))
+      let ctacte = e.options[e.selectedIndex].getAttribute("ctacte")
+      console.log("ctacte =", ctacte)
+
+    }
+
+    function check(e) {
+      tecla = (document.all) ? e.keyCode : e.which;
+
+      //Tecla de retroceso para borrar, siempre la permite
+      if (tecla == 8) {
+        document.getElementById("saldonuevo").value = document.getElementById("monto").value.trim();
+        return true;
+      }
+
+      // Patron de entrada, en este caso solo acepta numeros y letras
+      patron = /[0-9.]/;
+      tecla_final = String.fromCharCode(tecla);
+
+      return patron.test(tecla_final);
+    }
+
+    function grabar() {
+      console.log("boton Grabar");
+
+      if (document.getElementById("cliente").value == "") {
+        document.getElementById("cliente").focus();
+        console.log("cliente vacio");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'cargue un cliente',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+      }
+      if (document.getElementById("pedido").value == "") {
+        document.getElementById("pedido").focus();
+        console.log("pedido vacio");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'cargue un pedido',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+
+        return false;
+      }
+
+      else {
+        document.getElementById("procesarenvio").submit();
+      }
+    }
+
+
+    function boton_cancelar() {
+      console.log("boton cancelar");
+      Swal.fire({
+        title: 'Estas Seguro?',
+        text: "Deseas cancelar la edicion!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si Cancelas, volves sin grabar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = "/envios"
+          //document.getElementById("volver").submit();
+        }
+      })
+    }
+
+
+    function fecha_actual() {
+      fecha = new Date(); //Actualizar fecha.
+      diamenos7 = fecha.getTime(); //dia actual
+      diamenossiete = new Date(diamenos7);
+      console.log("dia menos7->", diamenossiete)
+      dia = diamenossiete.getDate(); //dia actual
+      console.log("dia menos 7 _>", dia)
+      mes = diamenossiete.getMonth() + 1; // mes actual
+      año = diamenossiete.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      console.log("mes menos7", mes)
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      //console.log("hola")
+      console.log("dia, mes, año", dia, mes, año);
+
+      fecha2 = dia + "-" + mes + "-" + "20" + año;
+      //console.log(mireloj)
+      return fecha2;
+    }
+
+    function fecha_actual2() {
+      fecha = new Date(); //Actualizar fecha.
+      diamenos7 = fecha.getTime(); //dia actual
+      diamenossiete = new Date(diamenos7);
+      console.log("dia menos7->", diamenossiete)
+      dia = diamenossiete.getDate(); //dia actual
+      console.log("dia menos 7 _>", dia)
+      mes = diamenossiete.getMonth() + 1; // mes actual
+      año = diamenossiete.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      console.log("mes menos7", mes)
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      //console.log("hola")
+      console.log("dia, mes, año", dia, mes, año);
+
+      fecha2 = "20" + año + "-" + mes + "-" + dia;
+      console.log("fecha2", fecha2)
+      return fecha2;
+    }
+  </script>
+</body>

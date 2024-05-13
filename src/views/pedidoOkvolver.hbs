@@ -1,0 +1,30 @@
+<body>
+
+
+
+    <div>
+
+        <div>
+        </div>
+        <progress value="0" max="10" id="progressBar"></progress>
+    </div>
+
+
+
+
+    <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+
+    <script type="text/javascript">
+ 
+        Swal.fire({
+            icon: 'success',
+            title: 'volviste el pedido',
+            text: 'a bandeja de entrada',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function () {
+             window.location = "/pedidos"
+        });     
+    </script>
+</body>

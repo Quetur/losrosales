@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <div class="card-body" style="background: white;">
+
+        {{#if particular}}
+        <a class="btn btn-info oculto-impresion" style="width: 440px;text-align: center;font-size: 30px;"
+            href="/productoventa" class="btn btn-info">Volver a Venta Particular</a>
+        {{else}}
+        <a class="btn btn-info oculto-impresion"
+            style="background: #fa7373;width: 440px;text-align: center;font-size: 30px;" href="/productoventamayor"
+            class="btn btn-info">Volver a Venta para Comercio</a>
+        {{/if}}
+        <form id="grabarAfip" action="/grabarAfip" style="font-size:24px" method="post">
+            <table border="0">
+                <tr>
+                    <td border="0" style="width: 440px;">
+                        <img align="left" src="../img/ticket.jpg" height="250px" width="430px" alt="Logotipo">
+                    </td>
+
+
+                </tr>
+                <tr style="height: 10px;">
+                    <td> <a></a> </td>
+
+            </table>
+
+            <table style="background: white; font-family: Roboto;" border="0">
+                <tr>
+                    <td style="width: 220px; font-family: Roboto;">
+                        <a class="ticket_item">Fecha : {{mfecha}}&nbsp&nbsp{{mhora}}</a>
+                    </td>
+                    <td style="width: 220px;">
+                        <a class="ticket_item">Nota de Pedido :&nbsp&nbsp {{compra_nro}} </a>
+                    </td>
+                    <input type="text" id="factura" name="factura" value="{{compra_nro}}" hidden>
+
+                </tr>
+                <tr style="height: 10px;">
+                    <td> <a></a> </td>
+                <tr>
+                    <td>
+                        {{# if particular}}
+                        <a class="ticket_item">Cliente : {{cliente}} </a>
+                        {{else}}
+                        <a class="ticket_item">Comercio : {{cliente}} </a>
+                        {{/if}}
+                    </td>
+
+                    <td>
+                        <a class="ticket_item">Atendido por {{combo_prov}}</a>
+                    </td>
+                </tr>
+                <tr style="height: 10px;">
+                    <td> <a></a> </td>
+            </table>
+
+            <table border="3" class="ticket_item">
+                <tr>
+                    <td style="border:1px solid black;  width: 30px;text-align: center;">
+                        <a>Cant</a>
+                    </td>
+                    <td style="border:1px solid black; width: 285px;text-align: left;">
+                        <a>Producto</a>
+                    </td>
+                    <td style="border:1px solid black; width: 50px;text-align: center;">
+                        <a>Precio</a>
+                    </td>
+                    <td style="border:1px solid black; width: 50px;text-align: center;" class="ticket_precio">
+                        <a class="ticket_precio">Total</a>
+                    </td>
+                </tr>
+                {{# if remito}}
+                {{#each data}}
+                <tr>
+                    <td style="border:1px solid black; width: 50px;text-align: center;">
+                        <a>{{cant}} </a>
+                    </td>
+                    <td style="border:1px solid black; width: 40px;text-align: left;" class="ticket_precio">
+                        <a>{{des}} </a>
+                    </td>
+                </tr>
+                {{/each}}
+                {{ else }}
+                {{#each data}}
+                <tr>
+                    <td style="border:1px solid black; width: 50px;text-align: center;">
+                        <a>{{cant}} </a>
+                    </td>
+                    <td style="border:1px solid black; width: 40px;text-align: left;" class="ticket_precio">
+                        <a>{{des}} </a>
+                    </td>
+                    <td style="border:1px solid black; width: 40px;text-align: right;" class="ticket_precio">
+                        <a>&nbsp{{precio_unit}}&nbsp </a>
+                    </td>
+                    <td style="border:1px solid black; width: 40px;text-align: right;" class="ticket_precio">
+                        <a>{{venta}}&nbsp&nbsp </a>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+
+
+            </table>
+            <table border="0" class="ticket_total">
+                <tr style="height: 20px;">
+                    <td> <a></a> </td>
+                <tr>
+                    <td style="width: 210px;text-align: left;">
+                        <a>Articulos:&nbsp {{largo}}</a>
+                    </td>
+                    {{# if remito}}
+                </tr>
+                <tr style="height: 20px;">
+                    <td> <a></a> </td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td style="width: 400px;text-align: right;">
+                        <a>Recibo conforme ..............................</a>
+                    </td>
+                </tr>
+                {{else}}
+                <td style="width: 160px;text-align: right;">
+                    <a>TOTAL - ></a>
+                </td>
+                <td style="width: 70px;text-align: right;">
+                    <a>{{total}}&nbsp&nbsp</a>
+                </td>
+                {{/if}}
+                </tr>
+                <tr style="height: 10px;">
+                    <td> <a></a> </td>
+                    <!--
+            <tr>
+                <td style="text-align: right;">
+
+                </td>
+                <td style="width: 160px;text-align: right;">
+                    <a name="pago_des" id="pago_des">pago - ></a>
+                </td>
+                <td style="width: 70px;text-align: right;">
+                    <a name="pago" id="pago">{{pago}}&nbsp&nbsp</a>
+                </td>
+            </tr>
+            <tr style="height: 10px;">
+                <td> <a></a> </td>
+            <tr>
+                
+                <td style="width: 150px;text-align: center;">
+                    <a name="condicion" id="condicion">pago con</a>
+                </td>
+                <td style="width: 150px;text-align: right;">
+                    <a name="vuelto_des" id="vuelto_des">Su vuelto -></a>
+                </td>
+                <td style="width: 70px;text-align: right;">
+                    <a name="vuelto" id="vuelto">{{vuelto}}&nbsp&nbsp</a>
+                </td>
+            </tr>
+            -->
+                <tr>
+                    <td></td>
+                     <td style="width: 70px;text-align: left;">
+                        {{# if monto_efec}}
+                            <a>Efectivo.....</a>
+                            <td style="width: 70px;text-align: right;">
+                                <a> {{efec}}&nbsp&nbsp</a>
+                            </td>
+
+                        {{/if}}
+                </tr>
+                <tr>
+                    {{# if monto_tran}}
+                        <td style="width: 150px;text-align: center;">
+                            <a name="condicion" id="condicion">Transferencia Nº</a>
+                        </td>
+                        <td>                       
+                          <a>{{trans}}</a>
+                        </td>
+                        <td style="width: 70px;text-align: right;">
+                          <a> {{tran}}&nbsp&nbsp</a>
+                        </td>
+                    {{/if}}
+                </tr>
+
+            </table>
+            <table border="0" style="background: white;">
+                <tr style="height: 20px;">
+                    {{# if reparto}}
+                    <td style="width: 40px;text-align: left;">
+                        <a>{{reparto}}</a>
+                    </td>
+                    {{/if}}
+                <tr>
+                    {{#if imprimeCtaCte }}
+                <tr style="height: 20px;">
+                    <td class="ticket_total" style="width: 160px;text-align: right;">
+                        <a>Saldo Anterior - >&nbsp&nbsp{{cliente_saldo}}&nbsp&nbsp</a>
+                    </td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td class="ticket_total" style="width: 160px;text-align: right;">
+                        <a>Saldo Actual - >&nbsp&nbsp{{saldo_actualizado}}&nbsp&nbsp</a>
+                    </td>
+                </tr>
+                {{/if}}
+
+                <tr>
+                    {{# if nota}}
+                    <td style="width: 440px;text-align: left;">
+                        <a>{{nota}}</a>
+                    </td>
+                    {{/if}}
+                </tr>
+                <tr>
+                    <td style="width: 440px;text-align: center;">
+                        <a class="gracias">Gracias por su Compra  !!!</a>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td style="width: 440px;text-align: center;">
+                       <!-- <a class="gracias">www.mayoristalosrosales.com.ar</a>-->
+                    </td>
+                </tr>
+                <tr>
+
+                    <td style="width: 440px;text-align: center;">
+                        <a>&nbsp&nbsp</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <button class="oculto-impresion btn btn-success"
+                    style="width: 440px;text-align: center;font-size: 30px;" id="imprimir"
+                    onclick="imprimir()">Imprimir</button>
+            </td>
+        </tr>
+        <tr style="height: 100px;">
+
+        <tr>
+            <td>
+                <input type="button" id="boton_grabar"
+                    style="background: #3f1b92;width: 350px;text-align: center;font-size: 30px;" onclick=grabar()
+                    class="oculto-impresion btn btn-danger btn-lg btn-block" value="Grabar Afip"></input>
+
+            </td>
+        </tr>
+    </table>
+
+    <script type="text/javascript">
+        document.getElementById("imprimir").focus();
+        console.log("antes");
+        history.pushState(null, null, window.location.href);
+        history.back();
+        window.onpopstate = () => history.forward();
+        console.log("despues");
+        var metodo = "{{condicion}}";
+        console.log("metodo = ", metodo);
+        if (metodo == "Efectivo") {
+            console.log("if condicion = Efectivo");
+            document.getElementById('condicion').hidden = true
+            //document.getElementById('pago_des').hidden = false
+            //document.getElementById('pago').hidden = false
+            //document.getElementById('vuelto_des').hidden = false
+            // document.getElementById('vuelto').hidden = false
+        }
+        else {
+            console.log("if condicion = Debito");
+            //document.getElementById('pago_des').hidden = true
+            // document.getElementById('pago').hidden = true
+            // document.getElementById('vuelto_des').hidden = true
+            //document.getElementById('vuelto').hidden = true
+        }
+        function grabar() {
+            console.log("grabar")
+            Swal.fire({
+                title: 'Cancelas grabar Afip?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'cancelas ?',
+                denyButtonText: `Grabas `,
+                text: "cancelar grabar en afip !",
+                confirmButtonColor: '#3085d6',
+                denyButtonColor: '#716add',
+                cancelButtonColor: '#d33'
+
+
+            }).then((result) => {
+
+                console.log("result :", result)
+                //document.getElementById('boton-procesar').disabled = true;
+                //document.getElementById("boton_grabar").disabled = true;
+                if (result.isConfirmed) { }
+                else if (result.isDenied) {
+                    document.getElementById('boton_grabar').value = 'Enviando, por favor espere...';
+                    document.getElementById("grabarAfip").submit();
+                }
+            })
+
+
+
+        }
+
+        function imprimir() {
+            window.print();
+        }
+        //
+    </script>
+</body>
+
+</html>

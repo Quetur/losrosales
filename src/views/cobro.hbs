@@ -1,0 +1,595 @@
+<header>
+  <link rel="stylesheet" href="/css/style.css">
+</header>
+
+<body>
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-md-4 mx-auto">
+        <div class="card_cobro">
+          <form id="procesarcobro" action="/procesarcobro" method="post">
+            <input style="width: 420px;" class="sinborde" type="text">
+            <label type="text"> En la ciudad de Ituzaingo, </label>
+            <input style="width: 120px;" class="sinborde" type="text" name="fecha" id="fecha">
+            <label type="text">a las </label>
+            <input class="sinborde" style="width: 80px;" type="text" name="hora" id="hora">
+            <input name="vendedor" id="vendedor" value="{{user.fullname}}" readonly hidden>
+            <table border="0" style="height: 200px; font-size: 2rem; width: 1000px;">
+              <tr>
+                <td style="text-align: center;width: 70px;">
+                  <label type="text">Se realiza </label>
+                </td>
+                <td style="height: 20px;font-size: 2rem;width: 100px;text-align: center; ">
+                  <select style="color: #0a094e;" class="sinbordeselect" id="comprobante" value="{{tipo}}">
+                    <option selected>Que</option>
+                    <option value="Recibo">un recibo a</option>
+                    <option value="Nota de Credito"> una nota de Credito a</option>
+                  </select>
+                  <input style="font-size: 2rem;width: 70px;  text-align: left;" name="tipo_comp" id="tipo_comp"
+                    readonly hidden>
+                </td>
+                <td style="height: 20px;font-size: 2rem;width: 100px;  text-align: right;">
+                  <select style="color: #0a094e;" class="sinbordeselect" id="combo_cliente" name="combo_cliente" onchange="myFunction(this)">
+                    <option value=0>Seleccione un Cliente</option>
+                    {{#each cli}}
+                    <option value="{{id}}" title="{{nombre}}" data-saldo="{{saldo}}">{{nombre}}</option>
+                    {{/each}}
+                  </select>
+                </td>
+               </tr>
+               <tr>
+                <td style="text-align: left;width: 70px">
+                  <label type="text">Que se abonara </label>
+                </td>
+                <td style="height: 20px;font-size: 2rem;width: 10px;  text-align: center;">
+                  <select style="color: #0a094e;" class="sinbordeselect" id="tipo" value="{{tipo}}">
+                    <option  value="Como" selected>Como</option>
+
+                    <option value="Efectivo"> en efectivo</option>
+                    <option value="Debito">por Debito</option>
+                    <option value="Transf. Banc">por Transf. Bancaria</option>
+                    <option value="Transf. MercPago">por Transf. MercPago</option>
+                  </select>
+
+                  <input style="font-size: 2rem;width: 0px;  text-align: left;" name="tipo_cobro" id="tipo_cobro"
+                    readonly hidden>
+                </td>
+                <td style="text-align: center;width: 70px">
+                  <label type="text">Por Suma de $ </label>
+                </td>
+                <td style="width: 100px; text-align: center;">
+                  <input class="sinborde" style="width:100px;height: 70px; text-align: right;  color: blue;  background-color: #d0f3f1;" type="text"
+                    name="monto" id="monto" onkeypress="return check(event)" />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4" style="width: 400px;">
+
+                  <textarea class="sinborde" style="width:1000px;height: 100px;  background-color: #adadad;" type="text"
+                    name="recibo" id="recibo"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <td style="height: 20px;font-size: 2rem;width: 200px;  text-align: left;">
+                  <label type="text" hidden>Cliente :</label>
+                  <input style="font-size: 2rem;width: 70px;  text-align: left;" name="id_cliente" id="id_cliente" hidden
+                    readonly>
+                </td>
+                <td></td>
+                <input style="font-size: 2rem;width: 70px;  text-align: left;" name="cliente_nombre" id="cliente_nombre"
+                  readonly hidden>
+                <td style="width: 200px;text-align: right;">
+                  <label style="text-align: right;" type="text">Cuyo saldo Anterior era de:</label>
+                </td>
+                <td style="width: 100px; text-align: center;">
+
+                  <input style="width:100px;height: 70px; text-align: right; color: red;" type="text" name="saldo"
+                    id="saldo" readonly />
+                </td>
+              </tr>
+
+              <tr>
+                <td><a href=""></a></td>
+                <td><a href=""></a></td>
+                <td style="width: 200px;text-align: right;">
+                  <label type="text">y su Saldo Actualizado es de :</label>
+                </td>
+                <td style="width: 100px; text-align: center;">
+                  <input style="width:100px;height: 70px; text-align: right;  color: green;" type="text"
+                    name="saldonuevo" id="saldonuevo" onkeypress="return check(event)" readonly />
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="4" style="width: 400px;">
+                  <label type="text">Nota :</label>
+                  <input style="width:925px;height: 70px;" type="note" name="nota" id="nota" />
+                </td>
+              </tr>
+              <tr>
+                <td style="width:100px;height: 70px;">
+                  <a href=""></a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="width: 400px; text-align: center;">
+                  <input type="button" id="cancelar"
+                    style="background: #fa7373;width: 400px;text-align: center;font-size: 30px;"
+                    onclick=boton_cancelar() class="oculto-impresion btn btn-danger btn-lg btn-block"
+                    value="Cancelar el cobro"></input>
+                </td>
+                <td colspan="2" style="width: 400px; text-align: center;">
+                  <input type="button" id="cancelar"
+                    style="background: green;width: 400px;text-align: center;font-size: 30px;" onclick=boton_grabar()
+                    class="oculto-impresion btn btn-danger btn-lg btn-block" value="Grabar el cobro"></input>
+                </td>
+
+              </tr>
+
+              <!--
+                    <tr>
+                      <td>Telefono</td>
+                      <td><input style="width:300px;height: 70px;" type="text" name="telefono" id="telefono" /></td>
+                    </tr>
+                    <tr>
+                      <td>condicion de IVA</td>
+                      <td><input style="width:300px;height: 70px;" type="text" name="iva" id="iva" /></td>
+                    </tr>
+                    <tr>
+                      <td>Numero CUIT</td>
+                      <td><input style="width:300px;height: 70px;" type="text" name="cuit" id="cuit" /></td>
+                    </tr>
+                    <tr>
+                      <td>Mail</td>
+                      <td><input style="width:300px;height: 70px;" type="text" name="mail" id="mail" /></td>
+                    </tr>
+                    <tr>
+                      <td>Categoria</td>
+                      <td><input style="width:300px;height: 70px;" type="text" name="categoria" id="categoria" /></td>
+                    </tr>
+                    <tr style="height: 100px;">
+                      <td> <a></a> </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" align-items="center" style="width:400px; align-items: center;">
+                        <input style="width:400px;align-items: center;" class="btn btn-success btn-lg btn-block"
+                          id="boton" value="Grabar" onclick=grabar()></input>
+                      </td>
+                    </tr>
+                    -->
+              </tbody>
+            </table>
+          </form>
+          <table border="0" style="width: 1100px;text-align: center;font-size: 30px;hight: 100px;">
+            <tr style="width: 440px;text-align: center;font-size: 30px;hight: 100px;">
+              <label type="text"> </label>
+            </tr>
+            <tr style="width: 1100px;text-align: center;font-size: 30px;hight: 100px;">
+              <td>
+                <button class="oculto-impresion btn btn-info" style="width: 440px;text-align: center;font-size: 30px;"
+                  onclick="imprimir()">Imprimir</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+  <script type="text/javascript">
+    cambio_fecha()
+    function myFunction(e) {
+      document.getElementById("saldo").value = e.options[e.selectedIndex].getAttribute("data-saldo");
+      document.getElementById("id_cliente").value = e.options[e.selectedIndex].getAttribute("value");
+      document.getElementById("cliente_nombre").value = e.options[e.selectedIndex].getAttribute("title");
+
+    }
+
+    /* $('#combo_cliente').change(function () {
+    
+       console.log('cambio cliente');
+       var seleccionado = document.getElementById("combo_cliente").selectedIndex ;
+       console.log("seleccionado", seleccionado)
+       console.log("attrib :", document.getElementById("combo_cliente"))
+       /*
+       console.log("value :",document.getElementById('combo_cliente').value);
+       console.log("Dataset :",document.getElementById('combo_cliente').dataset)
+       console.log("title :",document.getElementById('combo_cliente').title);
+  // console.log("title :",document.getElementById('combo_cliente').data-saldo);
+     console.log("title :",document.getElementById('combo_cliente').pattern);
+       console.log("nose :", $('#combo_cliente').attr('data-saldo'));
+       */
+    // document.getElementById('id_cliente').value = document.getElementById('combo_cliente').value;
+    // document.getElementById('id_cliente').value = document.getElementById('combo_cliente');
+    //console.log('entro cambio cliente comercio', document.getElementById('combo_cliente').value);
+    //document.getElementById('cliente').value = document.getElementById('combo_cliente').value;
+
+    //});
+
+    function check(e) {
+      tecla = (document.all) ? e.keyCode : e.which;
+
+      //Tecla de retroceso para borrar, siempre la permite
+      if (tecla == 8) {
+        document.getElementById("saldonuevo").value = document.getElementById("monto").value.trim();
+        return true;
+      }
+
+      // Patron de entrada, en este caso solo acepta numeros y letras
+      patron = /[0-9.]/;
+      tecla_final = String.fromCharCode(tecla);
+
+      return patron.test(tecla_final);
+    }
+
+    $('#monto').change(function () {
+      console.log('cambio de monto');
+      document.getElementById("monto").value = document.getElementById("monto").value.trim();
+      valormonto = document.getElementById("monto").value.trim();
+      //document.getElementById("monto").value = valormonto;
+      console.log("valor monto :", valormonto);
+
+      if (valormonto == null || valormonto.length <= 0) {
+        document.getElementById("monto").focus();
+        return false;
+      }
+    });
+
+    $('#monto').keyup(function () {
+      document.getElementById("saldonuevo").value = document.getElementById("saldo").value.trim() - document.getElementById("monto").value.trim();
+      document.getElementById("recibo").value = "En letras : (" + NumerosaLetras(document.getElementById("monto").value.trim())
+    });
+
+    /*
+        console.log("alta cliente");
+        function grabar() {
+          console.log("boton Grabar");
+          document.getElementById("procesarcliente").submit();
+        }
+    
+    */
+    function boton_cancelar() {
+      console.log("boton cancelar");
+      Swal.fire({
+        title: 'Estas Seguro?',
+        text: "Deseas cancelar el Pago!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si Cancelas, anulas!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById("volver").submit();
+        }
+      })
+    }
+    function cambio_fecha() {
+      fecha = new Date(); //Actualizar fecha.
+      dia = fecha.getDate(); //dia actual
+      mes = fecha.getMonth() + 1; // mes actual
+      año = fecha.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      date = dia + "/" + mes + "/" + año
+      console.log("date :", date);
+
+      field = document.querySelector('#fecha');
+      field.value = date;
+      console.log(field.value);
+
+      hora = hora + ":" + minuto;
+      field = document.querySelector('#hora');
+      field.value = hora;
+      console.log("hora :", hora);
+      document.getElementById("fecha").value = date
+      document.getElementById("hora").value = hora
+    }
+
+    function boton_grabar() {
+      console.log("boton grabar");
+      cambio_fecha()
+
+      document.getElementById("tipo_cobro").value = document.getElementById('tipo').value;
+      document.getElementById("tipo_comp").value = document.getElementById('comprobante').value;
+
+      console.log("id_cliente :", document.getElementById('id_cliente').value)
+      console.log("saldo anterior:", document.getElementById('saldo').value)
+      console.log("tipo :", document.getElementById('tipo').value)
+      console.log("monto :", document.getElementById('monto').value)
+      console.log("saldo nuevo :", document.getElementById('saldonuevo').value)
+      if (document.getElementById('id_cliente').value == 0) {
+        console.log("no hay cliente")
+        document.getElementById("combo_cliente").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'elija un cliente',
+          text: ' ',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+        return false;
+      }
+      if (document.getElementById('id_cliente').value == 0) {
+        console.log("no hay cliente")
+        document.getElementById("combo_cliente").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'elija un cliente',
+          text: ' ',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+        return false;
+      }
+
+      if (document.getElementById('saldo').value == 0) {
+        console.log("no hay cliente")
+        document.getElementById("combo_cliente").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'Saldo del cliente 0',
+          text: ' El saldo no puede ser 0',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+        return false;
+      }
+
+      if (document.getElementById('tipo').value == 0) {
+        console.log("no cargo tipo de cobro")
+        document.getElementById("tipo").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'Cargue el tipo de cobro',
+          text: ' ',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+        return false;
+      }
+
+      if (document.getElementById('monto').value == 0) {
+        console.log("no cargo el monto a cobrar")
+        document.getElementById("monto").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'Cargue el monto de cobrar',
+          text: ' ',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(function () {
+
+        })
+        return false;
+      }
+      /*
+       if (document.getElementById('saldonuevo').value < 0) {
+        console.log("no cargo el monto a cobrar")
+        document.getElementById("monto").focus();
+        Swal.fire({
+            icon: 'error',
+            title: 'Cargue el monto  correcto de cobrar',
+            text: ' el saldo nuevo no puede ser negativo',
+            showConfirmButton: false,
+            timer: 1000
+          }).then(function () {
+        
+        })
+      return false;
+      }
+      */
+
+      if ((document.getElementById('id_cliente').value) ||
+        (document.getElementById('envio2').checked) ||
+        (document.getElementById('envio1').checked)) {
+        console.log("true");
+      }
+      else {
+        console.log("falso");
+        document.getElementById("envio1").focus();
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ingrese el tipo de envio.',
+          showConfirmButton: false,
+          timer: 5000
+        });
+        return false;
+      }
+
+      Swal.fire({
+        title: 'Estas Seguro?',
+        text: "Deseas grabar el cobro!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si grabas, alteras cuenta corriente!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById("procesarcobro").submit();
+        }
+      })
+    }
+
+
+    function imprimir() {
+      window.print();
+    }
+
+
+    function NumerosaLetras(cantidad) {
+
+      var numero = 0;
+      cantidad = parseFloat(cantidad);
+
+      if (cantidad == "0.00" || cantidad == "0") {
+        return "CERO PESOS CON 00/100 M.N.";
+      } else {
+        var ent = cantidad.toString().split(".");
+        var arreglo = separar_split(ent[0]);
+        var longitud = arreglo.length;
+
+        switch (longitud) {
+          case 1:
+            numero = unidades(arreglo[0]);
+            break;
+          case 2:
+            numero = decenas(arreglo[0], arreglo[1]);
+            break;
+          case 3:
+            numero = centenas(arreglo[0], arreglo[1], arreglo[2]);
+            break;
+          case 4:
+            numero = unidadesdemillar(arreglo[0], arreglo[1], arreglo[2], arreglo[3]);
+            break;
+          case 5:
+            numero = decenasdemillar(arreglo[0], arreglo[1], arreglo[2], arreglo[3], arreglo[4]);
+            break;
+          case 6:
+            numero = centenasdemillar(arreglo[0], arreglo[1], arreglo[2], arreglo[3], arreglo[4], arreglo[5]);
+            break;
+        }
+
+        ent[1] = isNaN(ent[1]) ? '00' : ent[1];
+
+        return numero + "PESOS).--";
+      }
+    }
+
+    function unidades(unidad) {
+      var unidades = Array('UN ', 'DOS ', 'TRES ', 'CUATRO ', 'CINCO ', 'SEIS ', 'SIETE ', 'OCHO ', 'NUEVE ');
+
+      return unidades[unidad - 1];
+    }
+
+    function decenas(decena, unidad) {
+      var diez = Array('ONCE ', 'DOCE ', 'TRECE ', 'CATORCE ', 'QUINCE', 'DIECISEIS ', 'DIECISIETE ', 'DIECIOCHO ', 'DIECINUEVE ');
+      var decenas = Array('DIEZ ', 'VEINTE ', 'TREINTA ', 'CUARENTA ', 'CINCUENTA ', 'SESENTA ', 'SETENTA ', 'OCHENTA ', 'NOVENTA ');
+
+      if (decena == 0 && unidad == 0) {
+        return "";
+      }
+
+      if (decena == 0 && unidad > 0) {
+        return unidades(unidad);
+      }
+
+      if (decena == 1) {
+        if (unidad == 0) {
+          return decenas[decena - 1];
+        } else {
+          return diez[unidad - 1];
+        }
+      } else if (decena == 2) {
+        if (unidad == 0) {
+          return decenas[decena - 1];
+        }
+        else if (unidad == 1) {
+          return veinte = "VEINTI" + "UN ";
+        }
+        else {
+          return veinte = "VEINTI" + unidades(unidad);
+        }
+      } else {
+
+        if (unidad == 0) {
+          return decenas[decena - 1] + " ";
+        }
+        if (unidad == 1) {
+          return decenas[decena - 1] + " Y " + "UNO";
+        }
+
+        return decenas[decena - 1] + " Y " + unidades(unidad);
+      }
+    }
+
+    function centenas(centena, decena, unidad) {
+      var centenas = Array("CIENTO ", "DOSCIENTOS ", "TRESCIENTOS ", "CUATROCIENTOS ", "QUINIENTOS ", "SEISCIENTOS ", "SETECIENTOS ", "OCHOCIENTOS ", "NOVECIENTOS ");
+
+      if (centena == 0 && decena == 0 && unidad == 0) {
+        return "";
+      }
+      if (centena == 1 && decena == 0 && unidad == 0) {
+        return "CIEN ";
+      }
+
+      if (centena == 0 && decena == 0 && unidad > 0) {
+        return unidades(unidad);
+      }
+
+      if (decena == 0 && unidad == 0) {
+        return centenas[centena - 1] + "";
+      }
+
+      if (decena == 0) {
+        var numero = centenas[centena - 1] + "" + decenas(decena, unidad);
+        return numero.replace(" Y ", " ");
+      }
+      if (centena == 0) {
+
+        return decenas(decena, unidad);
+      }
+
+      return centenas[centena - 1] + "" + decenas(decena, unidad);
+    }
+
+    function unidadesdemillar(unimill, centena, decena, unidad) {
+      var numero = unidades(unimill) + " MIL " + centenas(centena, decena, unidad);
+      numero = numero.replace("UN MIL ", "MIL ");
+      if (unidad == 0) {
+        return numero.replace(" Y ", " ");
+      } else {
+        return numero;
+      }
+    }
+
+    function decenasdemillar(decemill, unimill, centena, decena, unidad) {
+      var numero = decenas(decemill, unimill) + " MIL " + centenas(centena, decena, unidad);
+      return numero;
+    }
+
+    function centenasdemillar(centenamill, decemill, unimill, centena, decena, unidad) {
+
+      var numero = 0;
+      numero = centenas(centenamill, decemill, unimill) + " MIL " + centenas(centena, decena, unidad);
+
+      return numero;
+    }
+
+    function separar_split(texto) {
+      var contenido = new Array();
+      for (var i = 0; i < texto.length; i++) {
+        contenido[i] = texto.substr(i, 1);
+      }
+      return contenido;
+    }
+  </script>
+</body>

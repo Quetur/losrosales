@@ -1,0 +1,115 @@
+<body>
+  <form id="myform">
+ 
+    <div class="d-flex  justify-content-center">
+      <div class="col-md-12 mx-auto">
+                <table border="0" style="height: 70px; font-size: 2rem; width: 1000px;">
+          <tr>
+            <td style="height: 20px;font-size: 2rem;width: 170px;  text-align: left;">
+              <label type="text">Fecha</label>
+              <input style="font-size: 2rem;width: 130px;  text-align: left;" name="fecha" id="fecha" readonly>
+            </td>
+            <td style="height: 20px;font-size: 2rem;width: 110px;  text-align: left;">
+              <label type="text">Hora</label>
+              <input style="font-size: 2rem;width: 80px;  text-align: left;" name="hora" id="hora" readonly>
+            </td>
+            <td style="height: 20px;font-size: 2rem;width: 130px;  text-align: left;">
+              <label type="text">Numero </label>
+              <input style="font-size: 2rem;width: 80px;  text-align: left;" name="factura" id="factura" readonly>
+            </td>
+            <td style="height: 20px;font-size: 2rem;width: 180px;  text-align: left;">
+              <label type="text">Cliente</label>
+              <input style="font-size: 2rem;width: 300px;  text-align: left;" name="cliente" id="cliente" readonly>
+            </td>
+
+        </table>
+        <div class="listaProductos">
+           <table border="1" id="lista_compra" class="table table-striped table-bordered table-hover"
+                  name="lista_compra">
+                  <thead>
+                    <tr style="color:black;font-size:80%;">
+                      <th>Descripcion</th>
+                      <th>Cant</th>
+                      <th>Precio Unitario</th>
+                      <th>Subttl</th>
+                    </tr>
+                  </thead>
+
+              <tbody>
+               {{#each detalleventa}}
+                    <tr style="color:black;font-size:70%;">
+                      <td>{{des}}</td>
+                      <td style="text-align:right;">&nbsp&nbsp{{cant}}</td>
+                      <td style="text-align:right;">&nbsp&nbsp{{precio_unit}}</td>
+                      <td style="text-align:right;">&nbsp&nbsp{{venta}}</td>
+                    </tr>
+                 {{/each}}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      $('#visible').change(function () {
+        if (this.checked) {
+          console.log('1');
+        } else {
+          console.log('0');
+        }
+      });
+
+      var self = this;
+
+      $('#search').keyup(function () {
+        search_table($(this).val());
+      });
+
+      function search_table(value) {
+
+        $('#tabla tr').each(function () {
+          var found = 'false';
+
+          $(this).each(function () {
+            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+              found = 'true';
+            }
+          });
+
+          if (found == 'true') {
+            $(this).show();
+          }
+          else {
+            $(this).hide();
+          }
+
+        });
+      }
+    });
+
+    function nuevoproducto() {
+      console.log("nuevoprouctor");
+
+      console.log('Agregando Nuevo Producto');
+      Swal.fire({
+        title: 'Agregando Nuevo Producto ....',
+        text: '',
+        showConfirmButton: false,
+        timer: 2000
+      }).then(function () {
+        window.location = "productonuevo";
+      })
+      /*  document.getElementById("visible").style.visibility = 0;
+        document.getElementById("visible").style="background-color:red;";
+         location.reload();
+       */
+    }
+
+  </script>
+</body>

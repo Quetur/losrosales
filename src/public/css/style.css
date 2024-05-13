@@ -1,0 +1,428 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
+
+* {
+  box-sizing: border-box;
+}
+
+/*html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 0;
+  background-color: #7EC855;
+  font-family: 'Roboto', sans-serif;
+}
+*/
+
+.sinborde {
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+}
+
+.sinbordeselect {
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  appearance:none;
+}
+
+.shopping-cart {
+  /*
+  width: 750px;
+  height: 423px;
+  margin: 80px auto;
+  background: #FFFFFF;
+  */
+  box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  height: 100px;
+  border-bottom: 1px solid #E1E8EE;
+  padding: 20px 30px;
+  color: blue ;
+  font-size: 3em;
+  font-weight: 400;
+}
+
+.item {
+  /*padding: 20px 30px;*/
+  /*height: 120px;*/
+  /*display: flex;*/
+  /*weight: 700px;*/
+  height: 300px;
+  font-size: 1em;
+  border-bottom:  2px solid #E1E8EE;
+}
+
+/*.item:nth-child() {
+  border-top:  1px solid #E1E8EE;
+  border-bottom:  1px solid #E1E8EE;
+}
+*/
+
+/* Buttons -  Delete and Like */
+.buttons {
+  position: relative;
+  padding-top: 1s0px;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  display: inline-block;
+  cursor: pointer;
+  width: 10px;
+  height: 17px;
+  background: url("delete-icn.svg") no-repeat center;
+  margin-right: 20px;
+}
+
+.like-btn {
+  position: absolute;
+  top: 9px;
+  left: 15px;
+  display: inline-block;
+  background: url('twitter-heart.png');
+  width: 10px;
+  height: 60px;
+  background-size: 2900%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.is-active {
+  animation-name: animate;
+  animation-duration: .8s;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(28);
+  animation-fill-mode: forwards;
+}
+
+@keyframes animate {
+  0%   { background-position: left;  }
+  50%  { background-position: right; }
+  100% { background-position: right; }
+}
+
+/* Product Image */
+.image {
+  width: 250px;
+ /* margin-right: 50px;
+ */
+}
+
+/* Product Description */
+.description {
+  /*width: 100%;*/
+  /*padding-top: 10px;
+  margin-right: 6px;
+  /*width: auto;*/
+  /*background: rgb(230, 230, 230);*/
+  font-size: 3em;
+  text-align: left;
+  vertical-align: text-top;
+
+}
+
+/*.description span {
+  display: block;
+ 
+  color: #43484D;
+  font-weight: 400;
+;
+}
+
+.description span:first-child {
+  margin-bottom: 2px;
+}
+.description span:last-child {
+  font-weight: 300;
+  margin-top: 8px;
+  color: #86939E;
+}
+*/
+.nota{
+  margin:0 10px; 
+  font-size: 1.5em;
+  text-align: left;
+  vertical-align: text-top;
+}
+
+/* Product Quantity */
+.quantity {
+  padding-top: 5px;
+  margin-right: 6px;
+  font-size: 1.5em;
+  /*width: 320px;*/
+}
+.quantity input {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  width: 150px;
+
+  color: #0602fd;
+  font-weight: bold;
+  font-size: 1.5em;
+
+}
+
+/*.quantify boton[class*=btn] {
+*/
+.quantify button[class*=btn] {
+  width: 80px;
+  height: 80px;
+  background-color: #E1E8EE;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.minus-btn {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 3px;
+}
+.plus-btn  {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 3px;
+}
+.sumacanasto  {
+  margin-top: 20px; 
+  width: 100px;
+  height: 50px;
+  margin-bottom: 3px; 
+}
+button:focus,
+input:focus {
+  outline:0;
+}
+
+/* Total Price */
+.total-price {
+  border: none;
+  width: 150px;
+  padding-top: 27px;
+  text-align: center;
+  font-size: 3em;
+  color: red;
+  font-weight: bold;
+}
+
+.total-price2 {
+  border: none;
+  width: 150px;
+  padding-top: 2px;
+  text-align: center;
+  font-size: 2em;
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .shopping-cart {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  .item {
+    height: 300;
+    /*flex-wrap: wrap;*/
+    justify-content: center;
+  }
+  .image img {
+  /*width: 50%;
+  */
+  widows: 300px;
+  }
+  .image,
+  .quantity,
+  .description {
+   /* width: 100%;*/
+    text-align: center;
+    margin: 6px 0;
+  }
+  .buttons {
+    margin-right: 20px;
+  
+  }
+
+}
+
+
+.w-5 {
+  width: 5%;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+
+
+
+/* para editar producto*/
+
+.formulario {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.formulario__label {
+	display: block;
+	font-weight: 700;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.formulario__grupo-input {
+	position: relative;
+}
+
+.formulario__input {
+	width: 100%;
+	background: #fff;
+	border: 3px solid transparent;
+	border-radius: 3px;
+	height: 45px;
+	line-height: 45px;
+	padding: 0 40px 0 10px;
+	transition: .3s ease all;
+}
+
+.formulario__input:focus {
+	border: 3px solid #0075FF;
+	outline: none;
+	box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
+}
+
+.formulario__input-error {
+	font-size: 12px;
+	margin-bottom: 0;
+	display: none;
+}
+
+.formulario__input-error-activo {
+	display: block;
+}
+
+.formulario__validacion-estado {
+	position: absolute;
+	right: 10px;
+	bottom: 15px;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0;
+}
+
+.formulario__checkbox {
+	margin-right: 10px;
+}
+
+.formulario__grupo-terminos, 
+.formulario__mensaje,
+.formulario__grupo-btn-enviar {
+	grid-column: span 2;
+}
+
+.formulario__mensaje {
+	height: 45px;
+	line-height: 45px;
+	background: #F66060;
+	padding: 0 15px;
+	border-radius: 3px;
+	display: none;
+}
+
+.formulario__mensaje-activo {
+	display: block;
+}
+
+.formulario__mensaje p {
+	margin: 0;
+}
+
+.formulario__grupo-btn-enviar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.formulario__btn {
+	height: 45px;
+	line-height: 45px;
+	width: 30%;
+	background: #000;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: .1s ease all;
+}
+
+.formulario__btn:hover {
+	box-shadow: 3px 0px 30px rgba(163,163,163, 1);
+}
+
+.formulario__mensaje-exito {
+	font-size: 14px;
+	color: #119200;
+	display: none;
+}
+
+.formulario__mensaje-exito-activo {
+	display: block;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.formulario__grupo-correcto .formulario__validacion-estado {
+	color: #1ed12d;
+	opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__label {
+	color: #bb2929;
+}
+
+.formulario__grupo-incorrecto .formulario__validacion-estado {
+	color: #bb2929;
+	opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__input {
+	border: 3px solid #bb2929;
+}
+
+
+/* ----- -----  Mediaqueries ----- ----- */
+@media screen and (max-width: 800px) {
+	.formulario {
+		grid-template-columns: 1fr;
+	}
+
+	.formulario__grupo-terminos, 
+	.formulario__mensaje,
+	.formulario__grupo-btn-enviar {
+		grid-column: 1;
+	}
+
+	.formulario__btn {
+		width: 100%;
+	}
+}

@@ -1,0 +1,33 @@
+<body>
+
+
+
+    <div class="col">
+
+        <div>
+
+            <p class="titulo">Pedido a Preparar !!!...</p>
+        </div>
+        <progress value="0" max="10" id="progressBar"></progress>
+    </div>
+
+
+
+
+    <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+
+    <script type="text/javascript">
+ 
+        Swal.fire({
+            icon: 'success',
+            title: 'Genial...',
+            text: 'Pedido a Preparar',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function () {
+               window.opener.location.reload();
+               window.close()
+        });     
+    </script>
+</body>

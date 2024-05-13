@@ -1,0 +1,253 @@
+<header>
+  <link rel="stylesheet" href="/css/bandejaentrada.css">
+</header>
+
+<body>
+  <form >
+    <script type='text/javascript' rel='js/handlebars-v4.0.5.js'></script>
+        <select id="combo_pedidos" name="combo_pedidos" hidden>
+
+                {{#each llegapedido}}
+                  <option value="{{id}}" title="{{estado}}" data-saldo="{{estado}}">{{cliente}} {{fecha}} {{hora}}</option>
+                {{/each}}
+                </select>
+                <select id="combo_pedidos2" name="combo_pedidos2" hidden>
+
+                {{#each preparapedido}}
+                  <option value="{{id}}" title="{{estado}}" data-saldo="{{estado}}">{{cliente}} {{fecha}} {{hora}}</option>
+                {{/each}}
+                </select>
+
+    <div class="row">
+      <div class="col-sm-5 col-md-6">
+
+        <table border=0 align="center">
+          <tr>
+            <td style="width: 600px;">
+              <input
+                style="width: 850px; height: 100px; background-color: blue;color: white; text-align: center;  font-weight: bold;font-size: 3em;"
+                type="text" name="titu" class="form-control" value="Bandeja de Entrada de Pedidos" readonly></input>
+
+            </td>
+          </tr>
+        </table>
+        <table class="encabezado_pedido" border="0" style="font-size: 1.5rem; width: 943px;">
+          <tr>
+            <th style="width: 150px; text-align: left; ">&nbsp&nbsp &nbsp&nbspFecha</th>
+            <th style="width: 150px; ">Hora</th>
+            <th style="width: 100px; ">Cliente</th>
+            <th style="width: 200px; ">Tipo de Cliente</th>
+            <th style="width: 150px; ">Total</th>
+            <th style="width: 150px;  text-align: center;">Ver</th>
+          </tr>
+        </table>
+        <div class="d-flex  justify-content-center">
+          <div class="col-md-12 mx-auto">
+            <div class="listaPedidos">
+
+              <table class="tabla_pedidos rowAlternate" id="tabla">
+
+                <tbody>
+                  {{#each llegapedido}}
+                  <tr style="color:black;">
+
+                    <td style="width: 150px;text-align:center;">{{fecha}}</td>
+                    <td style="width: 150px;text-align:center;">{{hora}}</td>
+                    <td style="width: 120px;text-align:center;">{{cliente}}</td>
+                    <td style="width: 200px;text-align:center;">{{tipo}}</td>
+                    <td style="width: 200px;text-align:right;">{{total}}</td>
+                    <td style="vertical-align:middle; text-align:center;width: 200px; ">
+                      <input type="image" id="{{id_pedido}}" name="{{id_pedido}}" value="{{id_pedido}}"
+                        class="verPedido" src="/img/lupa2.png" style="width: 50px;"></input>
+                    </td>
+
+                    <input id="fecha_{{id_pedido}}" value="{{des}}" hidden=true> </input>
+                    <input id="hora_{{id_pedido}}" value="{{costo}}" hidden=true> </input>
+                    <input id="cliente_{{id_pedido}}" value="{{precio2}}" hidden=true> </input>
+                    <input id="tipo_{{id_pedido}}" value="{{precio1}}" hidden=true> </input>
+                    <input id="total_{{id_pedido}}" value="{{precio1}}" hidden=true> </input>
+                  </tr>
+                  {{/each}}
+
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5 col-md-6">
+        <input style="width:200px; text-align:center;" name="fecha" id="fecha" hidden=true>
+        <input style="width:200px; text-align:center;" name="horalocal" id="horalocal" align="center" hidden=true>
+
+        <table border=0 align="center">
+          <tr>
+            <td style="width: 600px;">
+              <input
+                style="width: 850px; height: 100px; background-color: rgb(28, 73, 15);color: white; text-align: center;  font-weight: bold;font-size: 3em;"
+                type="text" name="titu" class="form-control" value="Preparacion de Pedidos " readonly></input>
+
+            </td>
+          </tr>
+        </table>
+        <table class="encabezado_pedido" border="0" style="background-color: rgb(28, 73, 15);color: white;font-size: 1.3rem; width: 943px;">
+          <tr>
+            <th style="width: 130px; text-align: left; ">&nbsp&nbsp &nbsp&nbspFecha</th>
+            <th style="width: 80px; ">Hora</th>
+            <th style="width: 200px;text-align: left; ">Cliente</th>
+            <th style="width: 200px;text-align: left; ">Tipo de Cliente</th>
+            <th style="width: 150px; ">Total</th>
+            <th style="width: 150px;  text-align: center;">Ver</th>
+          </tr>
+        </table>
+        <div class="d-flex  justify-content-center">
+          <div class="col-md-12 mx-auto">
+            <div class="listaPedidos">
+              <form >
+                <table class="tabla_pedidos rowAlternate" id="tabla">
+
+                  <tbody>
+                    {{#each preparapedido}}
+                    <tr style="color:black;">
+                      <td style="width: 120px;text-align:center;">{{fecha}}</td>
+                      <td style="width: 70px;text-align:center;">{{hora}}</td>
+                      <td style="width: 450px;text-align:left;">{{cliente}}</td>
+                      <td style="width: 250px;text-align:left;">{{tipo}}</td>
+                      <td style="width: 150px;text-align:right;">{{total}}</td>
+
+                      <td style="text-align:center;"><a href="/volveratras/{{id_pedido}}"
+                          class="btn btn-info">volver</a>
+                      <td style="text-align:center;"><a href="/hacerpedido/{{id_pedido}}"
+                          class="btn btn-info">Hacer pedido</a>  
+                      </td>
+                      <td style="vertical-align:middle; text-align:center;width: 200px; ">
+                      <input type="image" id="{{id_pedido}}" name="{{id_pedido}}" value="{{id_pedido}}"
+                        class="verPedido" src="/img/lupa2.png" style="width: 50px;"></input>
+                    </td>
+                    </tr>
+                    {{/each}}
+
+
+                  </tbody>
+                </table>
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </form>
+
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+  <script type="text/javascript">
+  document.getElementById('items').value = document.getElementById("combo_pedidos").options.length;
+  document.getElementById('items2').value = document.getElementById("combo_pedidos2").options.length;
+    function myFunction(e) {
+      console.log("entro aca")
+      document.getElementById("id_cliente").value = e.options[e.selectedIndex].getAttribute("value");
+      document.getElementById("cliente").value = e.options[e.selectedIndex].getAttribute("title");
+
+    }
+
+
+    $('#tablaPedidodetalle').find('tbody').find('[id^=id]').each(function () {
+      console.log("pasp")
+      if (!regex.test(this.innerHTML)) {
+        this.parentNode.style.backgroundColor = '#ff0000';
+      }
+    });
+
+
+
+    var regex = /Hot/;
+    $('#table1').find('tbody').find('[id^=artist]').each(function () {
+      if (!regex.test(this.innerHTML)) {
+        this.parentNode.style.backgroundColor = '#ff0000';
+      }
+    });
+
+    $(function () {
+
+      $('#filter1').change(function () {
+        console.log("paso")
+        $("#table td.col1:contains('" + $(this).val() + "')").parent().show();
+        $("#table td.col1:not(:contains('" + $(this).val() + "'))").parent().hide();
+      });
+
+    });
+
+    $('.verPedido').on('click', function (e) {
+
+      console.log('VerPedido');
+      console.log("e.target", e.target);
+      var id_Pedido = e.target.value
+      console.log("id_Pedido ", id_Pedido)
+      var linea = "/detallepedido/" + id_Pedido;
+      console.log("linea ", linea);
+      window.open(linea, "byspel", "width=300 px,height=600,menubar=no");
+    });
+/*
+    function volverAtras(){
+
+      console.log('VolverAtras');
+      var id_Pedido = document.getElementById('volver').value;
+      console.log("id_Pedido ", id_Pedido)
+      var linea = "/volverAtras/" + id_Pedido;
+      console.log("linea ", linea);
+      document.getElementById("volverAtras").submit();
+     // window.open(linea, "byspel", "width=300 px,height=600,menubar=no");
+    };
+*/
+    function cambio_fecha() {
+      d = new Date();
+      var z = n => ('0' + n).slice(-2);
+      date = z(d.getUTCDate()) + '/' + z(d.getMonth() + 1) + '/' + z(d.getYear());
+      console.log("date :", date);
+      field = document.querySelector('#fecha');
+      field.value = date;
+      console.log(field.value);
+
+      hora = z(d.getHours()) + ':' +
+        z(d.getMinutes());
+      field = document.querySelector('#horalocal');
+      field.value = hora;
+      console.log("hora :", hora);
+    }
+
+    function actual() {
+      fecha = new Date(); //Actualizar fecha.
+      dia = fecha.getDate(); //dia actual
+      mes = fecha.getMonth() + 1; // mes actual
+      año = fecha.getYear() - 100; // año actual
+      hora = fecha.getHours(); //hora actual
+      minuto = fecha.getMinutes(); //minuto actual
+      segundo = fecha.getSeconds(); //segundo actual
+      if (hora < 10) { //dos cifras para la hora
+        hora = "0" + hora;
+      }
+      if (dia < 10) { //dos cifras para la hora
+        dia = "0" + dia;
+      }
+      if (mes < 10) { //dos cifras para la hora
+        mes = "0" + mes;
+      }
+      if (minuto < 10) { //dos cifras para el minuto
+        minuto = "0" + minuto;
+      }
+      if (segundo < 10) { //dos cifras para el segundo
+        segundo = "0" + segundo;
+      }
+      //devolver los datos:
+      mireloj = dia + "/" + mes + "/" + año + "&nbsp&nbsp" +
+        hora + ":" + minuto + ":" + segundo;
+      return mireloj;
+    }
+  </script>
+</body>

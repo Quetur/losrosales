@@ -1,0 +1,130 @@
+<header>
+  <link rel="stylesheet" href="/css/cliente.css">
+</header>
+
+<body>
+
+  <form id="myform">
+
+    <div class="row">
+      <div class="col-sm-11 col-md-12">
+        <table>
+                       <tr><td> &nbsp</td> </tr>
+          <tr>
+
+            <td style="width:300px;"> &nbsp</td>
+            <td style="width:300px;  align-items: center; text-align: center;">
+              <input style="width:300px;" type="text" name="search" id="search" class="form-control"
+                placeholder="buscar" />
+            </td>
+            <td style="width:300px;  align-items: center; text-align: center;">
+              <input class="btn btn-danger  btn-lg btn-block" onclick=nuevocliente() type="button"
+                value="agregar cliente nuevo"></input>
+            </td>
+          </tr>
+          <tr><td> &nbsp</td> </tr>
+        </table>
+        <div class="d-flex justify-content-center">
+
+          <div class="col-md-11">
+            <table border="1">
+              <tr> </tr>
+                <tr style="font-size: 2em; font-weight: bold; background-color: blue; color: white;">
+                  <td style="width: 85px; ">Cod</td>
+                  <td style="width: 525px; ">Nombre</td>
+                  <td style="width: 500px; ">Direccion</td>
+                  <td style="width: 300px; ">Localidad</td>
+                  <td style="width: 300px;text-align:center;">Telefono</td>
+                  <td style="width: 100px;text-align:center;">Cat</td>
+                  <td style="width: 190px;text-align:center;">Accion</td>
+                </tr>
+              </table>
+            <div class="listaProductos">
+              
+
+              <table class="mi_table" id="tabla">
+                <tr>
+                  <tbody>
+                    {{#each data}}
+                    <tr>
+                      <td style="width: 85px;text-align:right;">{{id}}</td>
+                      <td style="width: 525px;">{{nombre}}</td>
+                      <td style="width: 500px;">{{direccion}}</td>
+                      <td style="width: 300px;">{{localidad}}</td>
+                      <td style="width: 300px;text-align:right;">{{telefono}}</td>
+                      <td style="width: 100px;text-align:center;">{{categoria}}</td>
+
+                      <!--  <td style="text-align:center;"><a href="/verproducto/{{id_producto}}" class="btn btn-info">Ver</a></td>-->
+                      <!--<td style="text-align:center;"><a href="/productoedit/{{id_producto}}"-->
+                      <td style="text-align:center;"><a href="/clientemodi/{{id}}"
+                          class="btn btn-info">Modifi</a></td>
+                      <td style="text-align:center;"><a href="/prod/{{id}}"
+                          class="btn btn-info">Borrar</a>
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+      var self = this;
+
+      $('#search').keyup(function () {
+        search_table($(this).val());
+      });
+
+      function search_table(value) {
+
+        $('#tabla tr').each(function () {
+          var found = 'false';
+
+          $(this).each(function () {
+            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+              found = 'true';
+            }
+          });
+
+          if (found == 'true') {
+            $(this).show();
+          }
+          else {
+            $(this).hide();
+          }
+
+        });
+      }
+    });
+
+    function nuevocliente() {
+      console.log("nuevoprouctor");
+      console.log('Agregando Nuevo Cliente');
+      Swal.fire({
+        title: 'Agregando Nuevo Cliente ....',
+        text: '',
+        showConfirmButton: false,
+        timer: 2000
+      }).then(function () {
+        window.location = "clientenuevo";
+      })
+      /*  document.getElementById("visible").style.visibility = 0;
+        document.getElementById("visible").style="background-color:red;";
+         location.reload();
+       */
+    }
+
+  </script>
+</body>
+<footer class="oculto-impresion"></footer>

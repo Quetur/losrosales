@@ -1,0 +1,65 @@
+body{
+	padding: 0;
+	margin: 0;
+
+}
+
+.encabezado_pedido{
+	display: block;
+	overflow-y: auto;
+	margin-left: 12px;
+	font-size: 1em;
+	height:50px;
+	width: 1200px;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	background-color: blue;
+	color: white;
+	text-align: center; 
+}
+.tabla_pedidos {
+	display: block;
+	overflow-y: auto;
+	height:100vh;
+	border-spacing: 0px;
+	border: solid 1px rgb(168, 26, 26);
+	border-collapse: collapse;
+	
+
+}
+
+.tabla_pedidos td,
+.tabla_pedidos th {
+border: solid 1px #ccc;
+padding: 5px;	
+font-size: 1em;
+}
+
+
+.tabla_pedidos tr {
+	height: auto;
+  overflow: auto;
+  display:inline-block;
+	background-color: rgb(250, 250, 250);
+}
+
+.tabla_pedidos tbody tr:hover {
+	background-color: rgb(160, 222, 225) !important; 
+}
+
+.tabla_pedidos thead {
+background-color: blue;
+color: white;
+font-size: 80%;
+position: sticky;
+top: 0;
+}
+
+.rowAlternate tr:nth-child(odd)
+{ background-color: rgb(225, 225, 225);
+}
+.rowAlternate tr:nth-child(even)
+{ background-color: white;
+}
+
+

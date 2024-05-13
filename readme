@@ -1,0 +1,5 @@
+subir
+git add .
+git status
+git commit -m "version"
+git push -u origin main

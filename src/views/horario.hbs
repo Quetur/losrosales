@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <link rel="stylesheet" href="/css/verventas.css">
+</header>
+
+<body>
+  <div class="card_horariohead">
+    <form id="procesarcliente" action="/grabahorario" method="POST">
+      {{#each usuario}}
+      <p>Horarios Semanales de {{fullname}}</p>
+      <p>Entrada {{horaentrada}}</p>
+      <p>Salida {{horasalida}}</p>
+      <p>Llegada tarde a partir de los {{tarde}} minutos</p>
+      <p>Si llega 2 dias tarde pierde el presentismo </p>
+
+      {{/each}}
+  </div>
+  <div class="card_horariobody">
+    <table border="0" id="lista_horas" class="table table-striped table-bordered table-hover" name="lista_horas">
+
+      <tr style="color:black;font-size:60%;">
+        <th style="width:80px">Dia</th>
+
+        <th>Ent</th>
+        <th>Sal</th>
+        <th>Ho</th>
+        <th>Min</th>
+        <th>HxM</th>
+        <th>Obs</th>
+      </tr>
+
+
+      <tbody>
+        {{#each horario}}
+        <tr style="color:black;font-size:80%;">
+          <td style="width:60px">{{diadesemana}}&nbsp{{fecha}}</td>
+          <td hidden>{{usuario}}</td>
+          <td style="width:30px; text-align: center;">{{ent2}}</td>
+          <td style="width:50px; text-align: center">{{sal2}}</td>
+          <td style="width:30px; text-align: center">{{horas}}</td>
+          <td style="width:30px; text-align: center">{{minutos}}</td>
+          <td style="width:50px; text-align: center"> </td>
+          <td >{{obs}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+      <!--
+                  <tr style="color: rgb(44, 10, 241);">
+                    <th style="text-align: right" hidden> </th>
+                    <th style="text-align: right"></th>
+                    <th style="text-align: center" id="item_tabla"> </th>
+                    <th style="text-align: right"> Horas</th>
+                    <th style="text-align: center" id=""> </th>
+                    <th style="text-align: right"> Horas x Min</th>
+                    <th style="text-align: center" id=""> </th>
+                    <th style="text-align: center" id=""> </th>
+                  </tr>
+-->
+    </table>
+  </div>
+
+  </form>
+  </div>
+  <td style="width: 100px;text-align: center;">
+    <a>&nbsp&nbsp</a>
+  </td>
+  <td style="width: 100px;text-align: center;">
+    <a>&nbsp&nbsp</a>
+  </td>
+
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <table border=2>
+
+  </table>
+  <table border=2>
+    <tr>
+      <td style="width:100px;  align-items: center; text-align: center;">
+        <label type="text">Total Horas </label>
+      </td>
+      <td style="width:100px;  align-items: center; text-align: center;">
+        <label type="text">Total HxM </label>
+      </td>
+      <td style="width:100px;  align-items: center; text-align: center;">
+        <label type="text">Total General </label>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:100px;height: 70px;font-size: 2rem;">
+        <input style="width:100px;height: 70px;font-size: 2rem; text-align: center;" type="text" name="total_tabla"
+          id="total_tabla" class="form-control" />
+      </td>
+      <td>
+        <input style="width:100px;height: 70px;font-size: 2rem; text-align: center;" type="text" name="total_min"
+          id="total_min" class="form-control" />
+      </td>
+      <td>
+        <input style="width:200px;height: 70px;font-size: 2rem; text-align: center;" type="text" name="total_gral"
+          id="total_gral" class="form-control" />
+      </td>
+    </tr>
+  </table>
+
+  <div class="overlay"></div> <!-- si sacoesto deja de andar el scrip -->
+
+  <table>
+    <tr>
+      <td>
+        <button class="oculto-impresion btn btn-success" style="width: 440px;text-align: center;font-size: 30px;"
+          id="imprimir" onclick="imprimir()">Imprimir</button>
+      </td>
+    </tr>
+    <tr style="height: 100px;">
+
+
+
+  </table>
+
+  <script type="text/javascript">
+    //document.getElementById('categoria').value = "2"
+    function imprimir() {
+      window.print();
+    }
+
+    function guardacliente() {
+      console.log("boton Grabar");
+      //console.log("tipo : ",document.getElementById("tipo").value);
+      document.getElementById("iva").value = document.getElementById("tipo").value
+      document.getElementById("categoria").value = document.getElementById("cate").value
+      document.getElementById("procesarcliente").submit();
+    }
+
+    function check(e) {
+      tecla = (document.all) ? e.keyCode : e.which;
+
+      //Tecla de retroceso para borrar, siempre la permite
+      if (tecla == 8) {
+        document.getElementById("saldonuevo").value = document.getElementById("monto").value.trim();
+        return true;
+      }
+
+      // Patron de entrada, en este caso solo acepta numeros y letras
+      patron = /[0-9.]/;
+      tecla_final = String.fromCharCode(tecla);
+
+      return patron.test(tecla_final);
+    }
+    function boton_cancelar() {
+      console.log("boton cancelar");
+      Swal.fire({
+        title: 'Estas Seguro?',
+        text: "Deseas cancelar la edicion!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si Cancelas, volves sin grabar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = "/cliente"
+          //document.getElementById("volver").submit();
+        }
+      })
+    }
+
+    // calculo del total
+    Sumar_horas()
+
+    function Sumar_horas() {
+      let total = 0;
+      let totalm = 0;
+      let largo = 0;
+      const table = document.getElementById("lista_horas");
+      console.log("tabla :", table);
+      for (let i = 1; i < table.rows.length ; i++) {
+        let minutos = Number(table.rows[i].cells[5].innerHTML)
+        console.log(minutos);
+        let min = 0
+        if (minutos <= 15) {
+          console.log("monor que 15", minutos)
+          min = 0
+        } else if (minutos >= 16 && minutos < 45) {
+          console.log("mmedia hora", minutos)
+          min = 0.5
+
+        } else if (minutos >= 45) {
+          console.log(" 1hora", minutos)
+          min = 1
+        }
+
+        valor = table.rows[i].cells[6].innerHTML
+        console.log("valor antes :", valor)
+        console.log("minutos", min)
+        valordespues = table.rows[i].cells[6]
+        console.log("tabla:", min)
+        valordespues.textContent = Number(min)
+        totalm = totalm + Number(table.rows[i].cells[6].innerHTML)
+        total = total + Number(table.rows[i].cells[4].innerHTML)
+      }
+      console.log("total :", total)
+      const mtotal = document.getElementById("total_tabla")
+      mtotal.textContent = total;
+      document.getElementById('total_tabla').value = total;
+      document.getElementById('total_min').value = totalm;
+      const mtotalm = document.getElementById("total_min")
+      mtotalm.textContent = totalm;
+      const total_gral = document.getElementById("total_gral")
+      total_gral.textContent = total + totalm;
+      document.getElementById('total_gral').value = totalm + total;
+    }
+  </script>
+</body>

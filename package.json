@@ -1,0 +1,41 @@
+{
+  "name": "nodejs-mysql-notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@afipsdk/afip.js": "^0.7.10",
+    "aws-sdk": "^2.1053.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.1",
+    "express-handlebars": "^3.1.0",
+    "express-mysql-session": "^2.1.7",
+    "express-session": "^1.17.0",
+    "express-validator": "^5.3.1",
+    "file-system": "^2.2.2",
+    "googleapis": "^92.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.7.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pkg": "^5.8.1",
+    "qr-image": "^3.2.0",
+    "sweetalert2": "^9.17.4",
+    "timeago.js": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
